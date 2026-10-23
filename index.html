@@ -64,11 +64,16 @@
         <button class="edge-arrow edge-left" id="prevZone" aria-label="Explore the previous time zone" title="Previous time zone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
         <button class="edge-arrow edge-right" id="nextZone" aria-label="Explore the next time zone" title="Next time zone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
         <div class="clock-hero" id="clock" aria-live="off">
-          <div class="clock-kicker" id="clockKicker">THE CORRECT TIME IN</div>
-          <h1 id="cityName">World Clock</h1>
+          <h1 class="clock-kicker" id="pageHeadline">WORLD CLOCK · CORRECT TIME NOW</h1>
+          <div class="clock-location" id="cityName">Brussels</div>
           <div class="time-display" id="timeDisplay" aria-label="Current local time"><span id="timeMain">--:--</span><span id="timeSeconds">:--</span></div>
           <div class="time-meta"><span id="dayDate">Loading date…</span><span class="meta-separator">·</span><span id="zoneInfo">UTC</span></div>
           <div class="location-caption" id="countryName">Belgium</div>
+          <button class="clock-share" id="shareTime" type="button" aria-describedby="shareNotice" title="Share the selected city clock">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 5h6v6M19 5l-9 9M19 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>
+            <span>Share this clock</span>
+          </button>
+          <span class="share-notice" id="shareNotice" aria-live="polite"></span>
         </div>
         <div class="stage-bottom">
           <div class="map-hint"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 14V5a1.6 1.6 0 0 1 3.2 0v7M11.2 11a1.6 1.6 0 0 1 3.2 0v1m0-1a1.6 1.6 0 0 1 3.2 0v1m0-1a1.6 1.6 0 0 1 3.2 0v5c0 3-2.3 5-5.1 5h-3.5c-2 0-3.2-.8-4.8-2.4L4 15a1.5 1.5 0 0 1 2.1-2.1l2 2"/></svg><span>Drag the map or select anywhere</span></div>
@@ -109,6 +114,7 @@
           <a href="/time/brussels/">Brussels</a>
           </nav>
           <div class="seo-seasonal"><p>When do the clocks change in Belgium?</p><a href="/wintertijd/">Wintertijd: wanneer gaat de klok terug?</a><a href="/zomertijd/">Zomertijd: wanneer gaat de klok vooruit?</a></div>
+          <p class="seo-related">Need machine-readable timestamps rather than local time? Try the <a href="https://unixtime.othrys.be/">UnixTime timestamp converter</a> — another standalone OTHRYS utility.</p>
         </div>
       </section>
     </main>

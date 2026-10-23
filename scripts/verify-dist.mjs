@@ -21,9 +21,15 @@ for(const route of routes){
   assert.ok(html.includes('lang="'+route.lang+'"'),'Incorrect page language: '+route.slug);
   if(route.city){
     assert.ok(html.includes('data-seo-city="'+route.city.name+'"'),'Client starting city mismatch');
+    assert.ok(html.includes('CORRECT TIME IN '+route.city.name.toUpperCase()),'City-specific static heading missing');
+    assert.ok(html.includes('class="clock-location" id="cityName">'+route.city.name+'</div>'),'City name not server rendered');
     assert.ok(html.includes(route.city.zone),'City time-zone facts missing');
     assert.ok(html.includes('class="city-seo-detail"'),'City-specific content missing');
     assert.ok(html.includes('application/ld+json'),'Structured data missing');
+  }
+  if(route.slug===''){
+    assert.ok(html.includes('WORLD CLOCK · CORRECT TIME NOW'),'Homepage search intent H1 missing');
+    assert.ok(html.includes('id="shareTime"'),'Share functionality missing');
   }
   if(route.slug==='wintertijd'||route.slug==='zomertijd'){
     assert.ok(html.includes('id="countdown"'),'Clock-change countdown missing');
