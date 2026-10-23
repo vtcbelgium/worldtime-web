@@ -282,7 +282,8 @@ function choose(place,opts={}) {
   centerLon=normalizeLon(selected.lon);
   dom.name.textContent=selected.name;
   dom.country.textContent=selected.country;
-  document.title=`Correct Time in ${selected.name} — World Time`;
+  // Keep the canonical, intent-specific document title stable when visitors change clocks.
+  // Changing the on-screen city must not rewrite a different page's SEO title.
   updateMap(!opts.instant);
   clockUpdate();
   document.querySelectorAll('.city-quick').forEach(el=>el.classList.toggle('current',el.dataset.city===selected.name));

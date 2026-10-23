@@ -56,3 +56,10 @@ Build verification: `scripts/verify-dist.mjs` checks every generated HTML file f
 ## Cartography data accuracy
 
 Map geometry comes from Natural Earth via `world-atlas`. The `@photostructure/tz-lookup` library uses compressed time-zone boundary approximations from timezone-boundary-builder. Its README explicitly warns that geographic time-zone lookup is approximate near borders; named city clocks instead use explicit known IANA identifiers. Do not market arbitrary map clicks as legally exact boundary results without upgrading and testing the geographic lookup. The displayed time within an identified IANA zone follows `Intl` rules provided by the user browser/runtime.
+
+## Search-intent stability (October 2026)
+
+- The visible city clock can change without rewriting `document.title`. Canonical homepage and individual static city landing-page titles remain stable for crawlers, social previews and visitors, regardless of their browser time zone.
+- Belgian winter/summer guide meta descriptions are evergreen: the next date/countdown is calculated at runtime instead of leaving a soon-stale year in the search snippet.
+- `scripts/validate-seo.mjs` guards against accidental reintroduction of a runtime title mutation or hard-coded seasonal year in meta descriptions.
+- Google Search Console remains the source of truth for indexing/impressions/click-through; no ranking claims are made without its data.

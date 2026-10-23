@@ -28,6 +28,7 @@ for(const route of routes){
   if(route.slug==='wintertijd'||route.slug==='zomertijd'){
     assert.ok(html.includes('id="countdown"'),'Clock-change countdown missing');
     assert.ok(html.includes('Koninklijke Sterrenwacht'),'Official Belgian source missing');
+    assert.ok(!/20\d{2}/.test(description),'Seasonal meta description must be evergreen: '+route.slug);
   }
 }
 assert.equal((sitemap.match(/<url>/g)||[]).length,routes.length,'Sitemap URL count mismatch');
