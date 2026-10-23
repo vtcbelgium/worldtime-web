@@ -50,3 +50,5 @@ Map visibility correction: `src/style.css` places the SVG map above the opaque g
 - Google FAQ rich results were retired in May 2026. No unsupported FAQ or artificial rich-result markup has been added.
 - Validate via `npm run check`, then `npm run build` and inspect generated `dist/time/*/index.html` and `dist/sitemap.xml`.
 - Submit the sitemap in Search Console/Bing Webmaster Tools after confirming deployed URLs return HTTP 200. No invented verification tokens or indexing guarantees.
+
+Build verification: `scripts/verify-dist.mjs` checks every generated HTML file for a unique title, complete description, correct canonical, IANA location, seasonal countdown, source citation and sitemap inclusion. All are required to pass before deployment.
