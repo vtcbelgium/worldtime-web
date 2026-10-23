@@ -45,3 +45,11 @@ No imaginary rankings, impressions, Web Vitals or completion claims. A green Ver
 
 ## Ownership
 Architect: ChatGPT. Manager: user-chosen agent (Antigravity if available). Builder: user-chosen tools. Review: deterministic tests plus human architectural review. Owner merge: explicit. Keep this contract as the Moirai/Thread fallback reference; do not assume that any external agent is already running.
+
+## v0.2 operator procedure
+
+1. Run npm run optimize:plan against the already-built site and examine plan.json. Use the first *evidence-supported* task; do not transform weak P3 research into speculative production changes.
+2. If the connected account allows, read Google Search Console rows with Windsor.ai and supply a **consented local JSON snapshot** to the planner. Do not put user metrics or tokens into a public repository.
+3. Run npm run optimize:smoke in a network-capable environment and attach the actual PASS/FAIL receipt. This is not browser QA. For browser QA check dark/light, map layers, clock sharing, city links, mobile viewport and console errors using a real browser.
+4. If Lighthouse is available, supply actual Lighthouse JSON. Compare similar environments only. Never equate lab synthetic numbers with field LCP/INP/CLS.
+5. Write one ticket with clear evidence source, hypothesized change, success criteria, cost, regression test and rollback. Draft PR permitted; owner merges. No automatic monitoring or unsolicited outreach.

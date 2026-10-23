@@ -11,7 +11,9 @@
     "test": "node --test tests/*.test.js",
     "check:seo": "node --test tests/seo-content.test.js",
     "optimize:audit": "node tooling/othrys-optimize/bin/audit.mjs --strict",
-    "optimize:report": "node tooling/othrys-optimize/bin/audit.mjs --report-dir .reports/optimization"
+    "optimize:report": "node tooling/othrys-optimize/bin/audit.mjs --report-dir .reports/optimization",
+    "optimize:plan": "npm run optimize:report && node tooling/othrys-optimize/bin/plan.mjs --out .reports/optimization",
+    "optimize:smoke": "node tooling/othrys-optimize/bin/smoke.mjs"
   },
   "dependencies": {
     "d3-geo": "3.1.1",
