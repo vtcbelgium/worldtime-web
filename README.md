@@ -18,3 +18,16 @@ The map shows illustrative meridian grid divisions; location lookups use current
 ## Privacy
 
 No accounts, tracking, or cookies. Browser time zone is available without GPS; precise location is asked for only on button click. A local theme preference is retained in browser storage.
+
+## Release verification
+
+After any production deployment, verify the rendered page at `https://worldtime.othrys.be/`:
+
+1. Visible world continents and meridian lines behind the central clock (not only a gradient).
+2. Dark and light themes both show the map and remember user preference.
+3. City search updates the map and clock; previous/next zone arrows and drag controls respond.
+4. New York, Brussels, Kathmandu, and Adelaide show correct IANA and fractional offsets.
+5. Server time API responds; a failed synchronization reports unverified device time rather than claiming accuracy.
+6. Desktop/mobile layouts remain usable and no client console errors occur.
+
+Map visibility correction: `src/style.css` places the SVG map above the opaque gradient while keeping the clock foreground. Confirm this visually after release.
