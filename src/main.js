@@ -1,7 +1,7 @@
 import { geoEquirectangular, geoPath, geoGraticule10 } from 'd3-geo';
 import { feature, mesh } from 'topojson-client';
 import { clockSample, calibratedNow, nextSecondDelay } from './clock-core.js';
-import { canonicalShareUrl, findSharedCity } from './share-links.js';
+import { canonicalShareUrl, findSharedCity, findSharedZone } from './share-links.js';
 import landTopo from 'world-atlas/countries-110m.json';
 import './style.css';
 
@@ -135,6 +135,8 @@ function getInitialPlace() {
   }
   const linkedCity = findSharedCity(window.location.search, CITIES);
   if (linkedCity) return linkedCity;
+  const sharedZone = findSharedZone(window.location.search);
+  if (sharedZone) return fallbackPlace(sharedZone);
   let zone = 'Etc/UTC';
   try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || zone } catch {}
   if(zone==='UTC')zone='Etc/UTC';
@@ -404,7 +406,7 @@ function initTheme() {
   dom.theme.addEventListener('change',()=>setTheme(dom.theme.checked?'light':'dark'));
 }
 async function shareCurrentClock() {
-  const url = canonicalShareUrl(selected);
+  const url = canonicalShareUrl(selected, 'https://worldtime.othrys.be', CITIES);
   dom.shareNotice.textContent = '';
   if (navigator.share) {
     try {
