@@ -63,3 +63,7 @@ Map geometry comes from Natural Earth via `world-atlas`. The `@photostructure/tz
 - Belgian winter/summer guide meta descriptions are evergreen: the next date/countdown is calculated at runtime instead of leaving a soon-stale year in the search snippet.
 - `scripts/validate-seo.mjs` guards against accidental reintroduction of a runtime title mutation or hard-coded seasonal year in meta descriptions.
 - Google Search Console remains the source of truth for indexing/impressions/click-through; no ranking claims are made without its data.
+
+## OTHRYS Optimization Kit — standalone pilot
+
+The reusable, zero-dependency agent-ready optimization package lives in [tooling/othrys-optimize](tooling/othrys-optimize/README.md). It runs read-only structural audits and tests in the existing Vercel release build (`npm run build`). Use `npm run optimize:report` to produce local, machine-readable findings and owner-gated proposals without changing production. The full research, safe automation policy, and gradual multi-site rollout are documented in the package. No recurring jobs or separate hosting are enabled.
