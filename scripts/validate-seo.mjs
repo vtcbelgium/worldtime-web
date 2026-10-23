@@ -5,7 +5,7 @@ const source = readFileSync('index.html','utf8');
 assert.ok(source.includes('class="seo-hub"'), 'Crawlable city hub missing');
 assert.ok(source.includes('rel="canonical"'), 'Canonical missing');
 assert.ok(source.includes('robots'), 'Robots meta missing');
-assert.ok(source.includes('<h1 id="cityName">World Clock</h1>'),'Root heading missing');
+assert.ok(source.includes('<h1 class="clock-kicker" id="pageHeadline">WORLD CLOCK · CORRECT TIME NOW</h1>'),'Stable descriptive root heading missing');
 for(const c of CITY_PAGES) {
   assert.match(c.zone,/^[A-Za-z_]+\/[A-Za-z_]+/);
   assert.ok(source.includes('/time/'+c.slug+'/'),'Missing HTML link to '+c.slug);

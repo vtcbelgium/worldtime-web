@@ -1,0 +1,19 @@
+{
+  "name": "World Time — launch pilot",
+  "baseUrl": "https://worldtime.othrys.be",
+  "distDir": "dist",
+  "maxPages": 30,
+  "maxHtmlBytes": 750000,
+  "minImpressions": 100,
+  "performanceBudget": {
+    "lcp": 2500,
+    "cls": 0.1,
+    "tbt": 200
+  },
+  "releasePolicy": {
+    "production": "owner-approved",
+    "recurringJobs": "disabled",
+    "automaticBacklinks": "prohibited",
+    "paidTools": "not-required"
+  }
+}

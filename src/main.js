@@ -1,6 +1,7 @@
 import { geoEquirectangular, geoPath, geoGraticule10 } from 'd3-geo';
 import { feature, mesh } from 'topojson-client';
 import { clockSample, calibratedNow, nextSecondDelay } from './clock-core.js';
+import { canonicalShareUrl, findSharedCity, findSharedZone } from './share-links.js';
 import landTopo from 'world-atlas/countries-110m.json';
 import './style.css';
 
@@ -16,7 +17,7 @@ const dom = {
   date: $('#dayDate'), zone: $('#zoneInfo'), utc: $('#utcCaption'), status: $('#clockStatus'),
   search: $('#citySearch'), searchWrap: $('#searchWrap'), results: $('#searchResults'),
   theme: $('#themeToggle'), prev: $('#prevZone'), next: $('#nextZone'), locate: $('#locate'),
-  cityRow: $('#cityRow')
+  cityRow: $('#cityRow'), share: $('#shareTime'), shareNotice: $('#shareNotice')
 };
 
 const CITIES = [
@@ -132,6 +133,10 @@ function getInitialPlace() {
     const direct = CITIES.find(c => c.name === pageCity);
     if (direct) return direct;
   }
+  const linkedCity = findSharedCity(window.location.search, CITIES);
+  if (linkedCity) return linkedCity;
+  const sharedZone = findSharedZone(window.location.search);
+  if (sharedZone) return fallbackPlace(sharedZone);
   let zone = 'Etc/UTC';
   try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || zone } catch {}
   if(zone==='UTC')zone='Etc/UTC';
@@ -400,7 +405,28 @@ function initTheme() {
   setTheme(theme);
   dom.theme.addEventListener('change',()=>setTheme(dom.theme.checked?'light':'dark'));
 }
+async function shareCurrentClock() {
+  const url = canonicalShareUrl(selected, 'https://worldtime.othrys.be', CITIES);
+  dom.shareNotice.textContent = '';
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: 'Correct time in ' + selected.name + ' — World Time', url });
+      return;
+    } catch (error) {
+      if (error?.name === 'AbortError') return;
+    }
+  }
+  try {
+    if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+    await navigator.clipboard.writeText(url);
+    dom.shareNotice.textContent = 'Clock link copied';
+  } catch {
+    // Accessible manual fallback; never claim copy success if browser permissions deny it.
+    dom.shareNotice.textContent = 'Share this link: ' + url;
+  }
+}
 function bindEvents() {
+  dom.share.addEventListener('click', shareCurrentClock);
   dom.map.addEventListener('pointerdown',mapPointerDown);
   dom.map.addEventListener('pointermove',mapPointerMove);
   dom.map.addEventListener('pointerup',mapPointerUp);
