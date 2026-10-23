@@ -67,3 +67,7 @@ Map geometry comes from Natural Earth via `world-atlas`. The `@photostructure/tz
 ## OTHRYS Optimization Kit — standalone pilot
 
 The reusable, zero-dependency agent-ready optimization package lives in [tooling/othrys-optimize](tooling/othrys-optimize/README.md). It runs read-only structural audits and tests in the existing Vercel release build (`npm run build`). Use `npm run optimize:report` to produce local, machine-readable findings and owner-gated proposals without changing production. The full research, safe automation policy, and gradual multi-site rollout are documented in the package. No recurring jobs or separate hosting are enabled.
+
+## Optimizer v0.2
+
+Manual, read-only evidence triage: run npm run optimize:plan after a local build. Optional remote HTTP checks: npm run optimize:smoke (requires network access). Neither command is scheduled. The agent packet makes evidence, priority, owner gate and rollback expectations explicit. The ranking playbook remains unchanged until real Search Console and performance data justify an experiment.

@@ -1,7 +1,7 @@
 {
   "name": "@othrys/optimization-kit",
-  "version": "0.1.0",
-  "description": "Read-only optimization audits and owner-gated AI agent proposal reports for small utility websites",
+  "version": "0.2.0",
+  "description": "Read-only website smoke checks and evidence-driven optimization agent proposal reports",
   "private": true,
   "type": "module",
   "bin": {
@@ -10,10 +10,14 @@
   "exports": {
     "./audit": "./lib/audit.mjs",
     "./signals": "./lib/signals.mjs",
-    "./policy": "./lib/policy.mjs"
+    "./policy": "./lib/policy.mjs",
+    "./planner": "./lib/planner.mjs",
+    "./smoke": "./lib/smoke.mjs"
   },
   "scripts": {
-    "test": "node --test tests/*.test.mjs"
+    "test": "node --test tests/*.test.mjs",
+    "smoke": "node bin/smoke.mjs",
+    "plan": "node bin/plan.mjs"
   },
   "engines": {
     "node": ">=20"
