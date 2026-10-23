@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#091520" />
-  <meta name="description" content="The correct time, anywhere. Discover exact current local time on a beautifully simple interactive world clock and time zone map. Live clock with daylight saving time." />
+  <meta name="description" content="What time is it now? Find the correct local time worldwide with a live world clock, clickable time zone map, city search and daylight saving updates." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="World Time by OTHRYS" />
@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;450;500;550;600;650;700&family=Manrope:wght@400;500;600;700;800&display=swap" />
-  <title>World Time — Correct Time Now &amp; Interactive World Clock</title>
+  <title>World Time – Correct Time Now &amp; Interactive World Clock</title>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"World Time","url":"https://worldtime.othrys.be/","description":"Interactive live world clock displaying the correct current time across IANA time zones, with daylight-saving-aware city search.","applicationCategory":"UtilitiesApplication","operatingSystem":"Any","isAccessibleForFree":true,"publisher":{"@type":"Organization","name":"OTHRYS","url":"https://othrys.be"}}</script>
 </head>
 <body>
@@ -64,7 +64,7 @@
         <button class="edge-arrow edge-right" id="nextZone" aria-label="Explore the next time zone" title="Next time zone"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
         <div class="clock-hero" id="clock" aria-live="off">
           <div class="clock-kicker" id="clockKicker">THE CORRECT TIME IN</div>
-          <h1 id="cityName">Brussels</h1>
+          <h1 id="cityName">World Clock</h1>
           <div class="time-display" id="timeDisplay" aria-label="Current local time"><span id="timeMain">--:--</span><span id="timeSeconds">:--</span></div>
           <div class="time-meta"><span id="dayDate">Loading date…</span><span class="meta-separator">·</span><span id="zoneInfo">UTC</span></div>
           <div class="location-caption" id="countryName">Belgium</div>
@@ -90,6 +90,24 @@
           <div><span class="info-index">01 / TIME</span><h3>Accurate by design</h3><p>We calibrate against a server clock when available. If you're offline, the time still works using your device clock, with its verification status clearly shown.</p></div>
           <div><span class="info-index">02 / ZONES</span><h3>Local, everywhere</h3><p>Real IANA time zone rules, including half-hour and quarter-hour offsets, not just 24 imaginary stripes across a map.</p></div>
           <div><span class="info-index">03 / PRIVACY</span><h3>No account needed</h3><p>Your browser time zone works immediately. Precise location access is optional, requested only when you choose it.</p></div>
+        </div>
+      </section>
+      <section class="seo-hub" aria-labelledby="worldClockCities">
+        <div class="seo-hub-inner">
+          <p class="section-overline">EXPLORE LOCAL TIME</p>
+          <h2 id="worldClockCities">Correct time in cities around the world</h2>
+          <p>Open a city to see its live local time, UTC offset, and daylight saving information. Each clock stays on the same interactive world map.</p>
+          <nav class="seo-city-links" aria-label="Explore current time in cities">
+          <a href="/time/new-york/">New York</a>
+          <a href="/time/london/">London</a>
+          <a href="/time/tokyo/">Tokyo</a>
+          <a href="/time/sydney/">Sydney</a>
+          <a href="/time/dubai/">Dubai</a>
+          <a href="/time/mumbai/">Mumbai</a>
+          <a href="/time/kathmandu/">Kathmandu</a>
+          <a href="/time/brussels/">Brussels</a>
+          </nav>
+          <div class="seo-seasonal"><p>When do the clocks change in Belgium?</p><a href="/wintertijd/">Wintertijd: wanneer gaat de klok terug?</a><a href="/zomertijd/">Zomertijd: wanneer gaat de klok vooruit?</a></div>
         </div>
       </section>
     </main>

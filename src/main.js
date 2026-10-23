@@ -126,6 +126,12 @@ function fallbackPlace(zone) {
   return {name,country:zone.split('/')[0].replaceAll('_',' '),zone,lat:22,lon:0};
 }
 function getInitialPlace() {
+  // Crawlable city landing pages always open the same location as their metadata.
+  const pageCity = document.documentElement.dataset.seoCity;
+  if (pageCity) {
+    const direct = CITIES.find(c => c.name === pageCity);
+    if (direct) return direct;
+  }
   let zone = 'Etc/UTC';
   try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || zone } catch {}
   if(zone==='UTC')zone='Etc/UTC';

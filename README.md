@@ -40,3 +40,13 @@ Map visibility correction: `src/style.css` places the SVG map above the opaque g
 - The server API rejects write methods, sets no-store headers and does not collect personal information.
 - Run `npm run check` before merging; it includes Node's built-in unit tests with no new testing dependencies.
 - Measure real production LCP/INP/CLS, network bytes and HTTP status separately; these static checks are not a substitute for live browser measurement.
+
+## SEO architecture (October 2026)
+
+- The immersive home page remains unchanged above the fold. Discoverable, static HTML links beneath it lead to eight editorially reviewed city clock URLs and two Dutch seasonal guides.
+- `scripts/generate-seo.mjs` builds real HTML pages from the Vite output: unique canonical, title, description, schema.org WebPage/BreadcrumbList, and static local time zone facts. Client app reads `data-seo-city` to display the correct city's live clock instead of visitor local time.
+- All URLs are in the sitemap. Don't create fake, bulk, thin or duplicate pages. Add new cities only after verifying unique user value and query demand from actual Search Console impressions.
+- Dutch `/wintertijd/` and `/zomertijd/` explain Belgian changes, cite the Belgian Royal Observatory, calculate the next change automatically, and link back to the clock.
+- Google FAQ rich results were retired in May 2026. No unsupported FAQ or artificial rich-result markup has been added.
+- Validate via `npm run check`, then `npm run build` and inspect generated `dist/time/*/index.html` and `dist/sitemap.xml`.
+- Submit the sitemap in Search Console/Bing Webmaster Tools after confirming deployed URLs return HTTP 200. No invented verification tokens or indexing guarantees.
