@@ -6,22 +6,22 @@ Reusable, **independent**, zero-runtime-dependency optimization package for smal
 
 ## Quick start
 
-From the containing website repository after building HTML into \`dist/\`:
+From the containing website repository after building HTML into `dist/`:
 
-\`\`\`bash
+```bash
 node tooling/othrys-optimize/bin/audit.mjs --config tooling/othrys-optimize/sites/worldtime.json --strict
 node tooling/othrys-optimize/bin/audit.mjs --config tooling/othrys-optimize/sites/worldtime.json --report-dir .reports/seo
 node --test tooling/othrys-optimize/tests/*.test.mjs
-\`\`\`
+```
 
-Generated \`.reports/seo/\` (when explicitly requested):
-- \`audit.md\` — human-readable prioritized diagnosis
-- \`audit.json\` — structured findings and source evidence
-- \`proposals.json\` — proposed tasks with owner/reviewer authority gates; **never executed**
+Generated `.reports/seo/` (when explicitly requested):
+- `audit.md` — human-readable prioritized diagnosis
+- `audit.json` — structured findings and source evidence
+- `proposals.json` — proposed tasks with owner/reviewer authority gates; **never executed**
 
-Optional evidence sources: \`--gsc-json path/to/windsor-rows.json\` and \`--lighthouse-json path/to/lighthouse-report.json\`. These are locally supplied, read-only snapshots. The package does not request your Google keys or Windsor credentials. A connected AI agent can fetch Search Console data through Windsor.ai and write a temporary export for this CLI, if its execution environment supports files.
+Optional evidence sources: `--gsc-json path/to/windsor-rows.json` and `--lighthouse-json path/to/lighthouse-report.json`. These are locally supplied, read-only snapshots. The package does not request your Google keys or Windsor credentials. A connected AI agent can fetch Search Console data through Windsor.ai and write a temporary export for this CLI, if its execution environment supports files.
 
-**Run \`--strict\` for a build gate.** Errors exit 2; warnings/opportunities are surfaced but do not block. This avoids breaking deployments for noncritical suggestions.
+**Run `--strict` for a build gate.** Errors exit 2; warnings/opportunities are surfaced but do not block. This avoids breaking deployments for noncritical suggestions.
 
 ## What is automated today
 
@@ -41,9 +41,9 @@ Optional evidence sources: \`--gsc-json path/to/windsor-rows.json\` and \`--ligh
 
 ## Portable adoption
 
-1. Copy the entire \`tooling/othrys-optimize\` directory into another Vite/Astro/Next static-export site.
-2. Add its own \`sites/<name>.json\` with verified HTTPS \`baseUrl\` and \`distDir\`.
-3. Build actual HTML and \`sitemap.xml\`; test its pages (do not invent directory pages).
+1. Copy the entire `tooling/othrys-optimize` directory into another Vite/Astro/Next static-export site.
+2. Add its own `sites/<name>.json` with verified HTTPS `baseUrl` and `distDir`.
+3. Build actual HTML and `sitemap.xml`; test its pages (do not invent directory pages).
 4. Add the read-only CLI to the existing CI/release build.
 5. Give your AI manager [AGENT.md](AGENT.md) and [docs/RESEARCH-PLAYBOOK.md](docs/RESEARCH-PLAYBOOK.md).
 6. Permit the manager to audit and create a **draft** pull request; require owner approval for publication, scheduled actions and outreach.

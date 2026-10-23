@@ -2,7 +2,7 @@
 
 **Phase A — World Time pilot (current):** check code/SEO deterministically in normal Vercel builds. Generate optional offline reports and proposals. Keep production controlled by the owner. No standalone central orchestrator.
 
-**Phase B — independent utilities:** copy versioned \`tooling/othrys-optimize\` folder into UnixTime and the next two small sites. Supply independent config, run tests, compare the false-positive rate and performance cost. Fix checks that fail real sites without good reason.
+**Phase B — independent utilities:** copy versioned `tooling/othrys-optimize` folder into UnixTime and the next two small sites. Supply independent config, run tests, compare the false-positive rate and performance cost. Fix checks that fail real sites without good reason.
 
 **Phase C — standardized package:** after three successful site audits, extract into a dedicated source repository and pinned semver package. Version its CLI/output schema and let each site update separately. No shared hosting or account credentials required.
 

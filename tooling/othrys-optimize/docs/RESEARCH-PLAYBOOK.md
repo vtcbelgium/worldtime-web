@@ -30,7 +30,7 @@ Turn research into a repeatable operational advantage. Search engines reward hel
 - **Avoid "ranking promises":** no guaranteed first position or fixed SEO score.
 
 ## World Time pilot baseline (23 October 2026)
-- New independent utility: \`https://worldtime.othrys.be/\`.
+- New independent utility: `https://worldtime.othrys.be/`.
 - 11 sitemap URLs submitted to Search Console. Windsor returned 11 submitted, zero errors and zero warnings. Google live inspection showed homepage eligible to index, not yet proven indexed.
 - No usable organic query/page rows yet.
 - Technical elements: Vite, pre-rendered city-specific HTML, two Belgian seasonal guides, IANA time zone aware clock, optional geolocation, no third-party analytics scripts.

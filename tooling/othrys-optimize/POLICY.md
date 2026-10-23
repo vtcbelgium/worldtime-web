@@ -1,6 +1,6 @@
 # OTHRYS Optimization Policy — enforceable owner gates
 
-\`lib/policy.mjs\` maps the action taxonomy to an authorization gate. The tool is deliberately read-only. The AI agent must follow the *stricter* of this policy and permissions of the connected account.
+`lib/policy.mjs` maps the action taxonomy to an authorization gate. The tool is deliberately read-only. The AI agent must follow the *stricter* of this policy and permissions of the connected account.
 
 | Action | Gate |
 |---|---|
@@ -17,7 +17,7 @@ Safeguards:
 - Never automatically create new Google properties or modify DNS.
 - Avoid intrusive cookies and tracking. Use aggregated GSC/field data under existing permissions.
 - Do not generate thousands of template pages without real original value.
-- Never fabricate a \`lastmod\` date or refresh publication dates to look new.
+- Never fabricate a `lastmod` date or refresh publication dates to look new.
 - Performance budgets must be based on tests, not guessed rankings.
 - No timed tasks automatically activated; previously paused work remains paused unless owner explicitly authorizes a cadence.
 - Changes affecting OTHRYS main repos are forbidden in the pilot. Extract only after independent validation.
