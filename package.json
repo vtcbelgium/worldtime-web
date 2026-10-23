@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run check && vite build",
+    "build": "npm run check && vite build && node scripts/generate-seo.mjs && node scripts/verify-dist.mjs",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "node --check src/main.js && node --check src/clock-core.js && node --check api/time.js && node --test tests/*.test.js",
-    "test": "node --test tests/*.test.js"
+    "check": "node --check src/main.js && node --check src/clock-core.js && node --check api/time.js && node --test tests/*.test.js && node scripts/validate-seo.mjs",
+    "test": "node --test tests/*.test.js",
+    "check:seo": "node --test tests/seo-content.test.js"
   },
   "dependencies": {
     "d3-geo": "3.1.1",

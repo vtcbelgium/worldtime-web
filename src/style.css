@@ -22,3 +22,22 @@
 @media(max-width:850px){.topbar{height:86px}.brand-name small{display:none}.brand-mark{width:27px;height:27px}.brand-mark::before{width:10px;height:21px}.brand-mark::after{width:21px;height:9px}.brand-mark span:first-child{height:25px}.brand-mark span:last-child{width:25px}.brand-name strong{font-size:12px;letter-spacing:.19em}.top-actions{gap:9px}.search-wrap{width:43px;overflow:visible}.search-wrap:not(:focus-within) input{width:0;opacity:0;padding:0}.search-wrap:focus-within{width:clamp(180px,38vw,260px)}.search-wrap>svg{margin:0 12px}.world-stage{min-height:650px}.info-section{grid-template-columns:1fr;gap:38px}.city-quick{padding:8px 12px}}
 @media(max-width:600px){.topbar{padding:0 18px;height:76px;gap:10px}.brand{gap:10px}.brand-name strong{font-size:10px;letter-spacing:.11em}.top-actions{gap:7px}.search-wrap{height:39px;width:39px}.search-wrap:focus-within{position:absolute;top:76px;right:18px;width:calc(100vw - 36px);z-index:10}.icon-button{width:39px;height:39px}.switch-track{width:61px;height:39px;padding:0 5px}.switch-track>svg{width:14px;height:14px}.switch-thumb{width:27px;height:27px}.theme-switch input:checked+.switch-track .switch-thumb{transform:translateX(22px)}.world-stage{min-height:640px;height:100svh}.map-shell{opacity:.84}.eyebrow-pill{top:clamp(130px,22vh,200px);font-size:9px;padding:9px 12px}.clock-hero{transform:translateY(2vh)}.clock-kicker{letter-spacing:.21em;margin-bottom:13px}.time-display{font-size:clamp(49px,14vw,86px)}.clock-hero h1{font-size:22px;margin-top:10px}.time-meta{font-size:11px;gap:7px;flex-wrap:wrap;margin-top:14px}.location-caption{font-size:10px}.edge-arrow{width:40px;height:40px;top:72%}.edge-left{left:17px}.edge-right{right:17px}.stage-bottom{bottom:24px;left:20px;right:20px}.map-hint{font-size:10px;max-width:60%}.map-hint svg{display:none}.utc-caption{font-size:10px}.city-strip{padding:24px 20px}.city-row{display:flex;overflow-x:auto;gap:0;scroll-snap-type:x mandatory;scrollbar-width:none}.city-row::-webkit-scrollbar{display:none}.city-quick{min-width:120px;scroll-snap-align:start;padding:10px 16px}.quick-time{font-size:23px}.info-section{padding:70px 24px}.info-copy h2{font-size:39px}.footer{padding:28px 22px;gap:14px;font-size:9px}.footer span:last-child{width:100%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.map-motion,.site,.edge-arrow,.switch-thumb{transition:none!important}}
+
+/* Below-the-fold destination links; keep the immersive world clock unchanged. */
+.seo-hub{background:var(--section);border-top:1px solid var(--stroke);padding:72px clamp(24px,7.5vw,140px) 100px}
+.seo-hub-inner{max-width:1040px;margin:0 auto}
+.seo-hub h2,.city-seo-detail h2{font-family:'Manrope',sans-serif;font-size:clamp(27px,3vw,45px);font-weight:500;letter-spacing:-.04em;margin:16px 0 18px}
+.seo-hub p,.city-seo-detail p{color:var(--secondary);line-height:1.75;max-width:730px;font-size:15px}
+.seo-city-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:30px 0}
+.seo-city-links a,.seo-seasonal a,.city-seo-detail a{color:var(--text);text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:5px}
+.seo-city-links a{border:1px solid var(--stroke);padding:16px 18px;border-radius:11px;text-decoration:none}
+.seo-city-links a:hover,.seo-city-links a:focus-visible{border-color:var(--accent);background:var(--glass)}
+.seo-seasonal{border-top:1px solid var(--stroke);padding-top:22px;display:flex;gap:17px;flex-wrap:wrap;align-items:center}
+.seo-seasonal p{flex-basis:100%;margin:0 0 4px}
+.city-seo-detail{background:var(--panel);border-top:1px solid var(--stroke);padding:70px clamp(24px,7.5vw,140px)}
+.city-seo-detail>div{max-width:1000px;margin:auto}
+.city-seo-detail strong{color:var(--text)}
+.city-seo-detail p{max-width:870px}
+.city-seo-detail .city-facts{border-left:2px solid var(--accent);padding:8px 0 8px 20px;margin:20px 0;color:var(--text)}
+@media(max-width:750px){.seo-city-links{grid-template-columns:repeat(2,minmax(0,1fr))}.seo-hub{padding-top:55px}.city-seo-detail{padding-top:55px}}
+@media(max-width:360px){.seo-city-links{grid-template-columns:1fr}}
