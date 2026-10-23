@@ -31,3 +31,12 @@ After any production deployment, verify the rendered page at `https://worldtime.
 6. Desktop/mobile layouts remain usable and no client console errors occur.
 
 Map visibility correction: `src/style.css` places the SVG map above the opaque gradient while keeping the clock foreground. Confirm this visually after release.
+
+## Performance and correctness checks (v1.1)
+
+- The world map renders immediately; geographic time-zone lookup code is lazy-loaded when clicking/swiping into a zone or using optional GPS.
+- A normally fast server calibration uses **one** API request (instead of three), with one retry for slow or failed samples. Synchronize when a hidden tab becomes visible and periodically while visible.
+- The running clock renders once per displayed second, rather than five times per second.
+- The server API rejects write methods, sets no-store headers and does not collect personal information.
+- Run `npm run check` before merging; it includes Node's built-in unit tests with no new testing dependencies.
+- Measure real production LCP/INP/CLS, network bytes and HTTP status separately; these static checks are not a substitute for live browser measurement.
