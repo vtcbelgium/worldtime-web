@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "site": "https://worldtime.othrys.be",
+  "mode": "PROPOSE_AND_VERIFY",
+  "rules": {
+    "automaticPublishing": false,
+    "automaticOutreach": false,
+    "automaticScheduling": false,
+    "dataClaimsRequireSource": true,
+    "ownerApprovalBeforeProduction": true,
+    "oneExperimentAtATime": true
+  },
+  "tactics": [
+    {
+      "id": "RANK-01",
+      "name": "Exact search intent",
+      "state": "implemented-preview",
+      "authority": "PR_REVIEW",
+      "deliverable": "Stable H1 for world clock and every city; time immediately visible",
+      "measurement": "GSC search query and landing page impressions",
+      "next": "Observe actual queries, then experiment with copy"
+    },
+    {
+      "id": "RANK-02",
+      "name": "Earn genuine backlinks",
+      "state": "approval-gated",
+      "authority": "OWNER_APPROVAL",
+      "deliverable": "Research relevant publishers; never auto-send outreach",
+      "measurement": "Qualifying referring websites and referral visits",
+      "next": "Shortlist educational, travel and global-team resources for owner review"
+    },
+    {
+      "id": "RANK-03",
+      "name": "Make a shareable utility",
+      "state": "implemented-preview",
+      "authority": "PR_REVIEW",
+      "deliverable": "Share or copy selected city clock with no GPS coordinates",
+      "measurement": "Referral sessions and voluntary links",
+      "next": "Validate share flow on mobile; consider a small embeddable clock only after demand"
+    },
+    {
+      "id": "RANK-04",
+      "name": "Unique city page value",
+      "state": "implemented-live",
+      "authority": "OWNER_APPROVAL",
+      "deliverable": "Eight useful pre-rendered city pages and two seasonal guides",
+      "measurement": "Indexed pages, query impressions and meaningful clicks",
+      "next": "Only expand pages after Search Console confirms demand"
+    },
+    {
+      "id": "RANK-05",
+      "name": "Real localization",
+      "state": "partly-live",
+      "authority": "OWNER_APPROVAL",
+      "deliverable": "Dutch Belgian guides; avoid bogus hreflang between unrelated pages",
+      "measurement": "Localized query demand",
+      "next": "Consider reviewed French/German equivalents once demand appears"
+    },
+    {
+      "id": "RANK-06",
+      "name": "Speed and Core Web Vitals",
+      "state": "implemented-preview",
+      "authority": "PR_REVIEW",
+      "deliverable": "Build gzip budget + existing clock optimization + optional Lighthouse evidence",
+      "measurement": "Actual mobile LCP/INP/CLS; compressed JS/CSS bytes",
+      "next": "Measure mobile CWV; do not call bundle gzip a Lighthouse score"
+    },
+    {
+      "id": "RANK-07",
+      "name": "Search result clarity",
+      "state": "implemented-preview",
+      "authority": "PR_REVIEW",
+      "deliverable": "Stable titles, descriptions, canonicals, WebSite and per-city WebPage, favicon",
+      "measurement": "GSC per-query CTR at a comparable rank",
+      "next": "Verify Google's real snippets before changing titles"
+    },
+    {
+      "id": "RANK-08",
+      "name": "Internal navigation",
+      "state": "implemented-preview",
+      "authority": "PR_REVIEW",
+      "deliverable": "Related city comparison links, seasonal guides and UnixTime contextual link",
+      "measurement": "User navigation and indexable pathways",
+      "next": "Add cross-repo links only when relevant and owner-approved"
+    },
+    {
+      "id": "RANK-09",
+      "name": "Accuracy and trust",
+      "state": "implemented-live",
+      "authority": "PR_REVIEW",
+      "deliverable": "IANA zones, server calibration status, boundary approximation disclosure and credits",
+      "measurement": "Time accuracy regressions and quality mentions",
+      "next": "Document source versions and official rule changes"
+    },
+    {
+      "id": "RANK-10",
+      "name": "Evidence-driven optimization",
+      "state": "implemented-read-only",
+      "authority": "AUTO_READ",
+      "deliverable": "Windsor/Search Console evidence and machine-readable proposals with approval gates",
+      "measurement": "Impressions, clicks, indexed URLs and experiments",
+      "next": "Start no scheduled monitor without explicit owner approval"
+    }
+  ]
+}

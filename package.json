@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run check && vite build && node scripts/generate-seo.mjs && node scripts/verify-dist.mjs && node tooling/othrys-optimize/bin/audit.mjs --strict",
+    "build": "npm run check && vite build && node scripts/generate-seo.mjs && node scripts/verify-dist.mjs && node tooling/othrys-optimize/bin/audit.mjs --strict && node tooling/othrys-optimize/bin/budget.mjs",
     "preview": "vite preview --host 0.0.0.0",
     "check": "node --check src/main.js && node --check src/share-links.js && node --check src/clock-core.js && node --check api/time.js && node --test tests/*.test.js && node scripts/validate-seo.mjs && node --test tooling/othrys-optimize/tests/*.test.mjs",
     "test": "node --test tests/*.test.js",
