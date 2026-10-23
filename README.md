@@ -52,3 +52,7 @@ Map visibility correction: `src/style.css` places the SVG map above the opaque g
 - Submit the sitemap in Search Console/Bing Webmaster Tools after confirming deployed URLs return HTTP 200. No invented verification tokens or indexing guarantees.
 
 Build verification: `scripts/verify-dist.mjs` checks every generated HTML file for a unique title, complete description, correct canonical, IANA location, seasonal countdown, source citation and sitemap inclusion. All are required to pass before deployment.
+
+## Cartography data accuracy
+
+Map geometry comes from Natural Earth via `world-atlas`. The `@photostructure/tz-lookup` library uses compressed time-zone boundary approximations from timezone-boundary-builder. Its README explicitly warns that geographic time-zone lookup is approximate near borders; named city clocks instead use explicit known IANA identifiers. Do not market arbitrary map clicks as legally exact boundary results without upgrading and testing the geographic lookup. The displayed time within an identified IANA zone follows `Intl` rules provided by the user browser/runtime.
