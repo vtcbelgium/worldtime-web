@@ -432,7 +432,7 @@ function bindEvents() {
     },()=>{
       dom.locate.disabled=false;
       dom.status.textContent='Location unavailable · showing selected time';
-      setTimeout(()=>{dom.status.textContent=clockVerified?'Time synchronized':'Device time · not verified'},3500);
+      setTimeout(()=>{dom.status.textContent=clockVerified?'Server time calibrated':'Device time · not verified'},3500);
     },{enableHighAccuracy:false,maximumAge:600000,timeout:9000});
   });
   document.addEventListener('visibilitychange',()=>{
