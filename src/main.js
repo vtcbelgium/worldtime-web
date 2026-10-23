@@ -1,6 +1,6 @@
 import { geoEquirectangular, geoPath, geoGraticule10 } from 'd3-geo';
 import { feature, mesh } from 'topojson-client';
-import tzlookup from '@photostructure/tz-lookup';
+import { clockSample, calibratedNow, nextSecondDelay } from './clock-core.js';
 import landTopo from 'world-atlas/countries-110m.json';
 import './style.css';
 
@@ -140,50 +140,62 @@ let raf = 0;
 let mapMover = null;
 let markerEls = [];
 let ticker;
+let lookupModulePromise = null;
+let coordinateRequestId = 0;
+let syncPromise = null;
 
 function nowMs() {
-  return serverClock ? serverClock.utcMs + (performance.now() - serverClock.monoMs) : Date.now();
+  return calibratedNow(serverClock, performance.now(), Date.now());
 }
 function clockUpdate() {
   const date = new Date(nowMs());
   const p = parts(date, selected.zone);
   dom.main.textContent = `${p.hour}:${p.minute}`;
   dom.seconds.textContent = `:${p.second}`;
-  dom.date.textContent = dateLine(date,selected.zone);
-  dom.zone.textContent = `${shortZone(date,selected.zone)} · UTC${getOffset(date,selected.zone)}`;
-  dom.utc.textContent = `UTC ${getOffset(date,selected.zone)}`;
-  document.querySelectorAll('[data-strip-zone]').forEach(el=>{
+  dom.date.textContent = dateLine(date, selected.zone);
+  dom.zone.textContent = `${shortZone(date, selected.zone)} · UTC${getOffset(date, selected.zone)}`;
+  dom.utc.textContent = `UTC ${getOffset(date, selected.zone)}`;
+  document.querySelectorAll('[data-strip-zone]').forEach(el => {
     const time = parts(date, el.dataset.stripZone);
     el.textContent = `${time.hour}:${time.minute}`;
   });
 }
-async function synchronize() {
-  let best = null;
-  for (let i=0;i<3;i++) {
-    const start = performance.now();
-    try {
-      const response = await fetch(`/api/time?ts=${Math.floor(start)}`, {cache:'no-store',signal:AbortSignal.timeout(4500)});
-      if (!response.ok) throw new Error('Sync response unavailable');
-      const data = await response.json();
-      const end = performance.now();
-      const rtt = end - start;
-      if (typeof data.unixMs !== 'number' || !Number.isFinite(data.unixMs)) throw new Error('Invalid server clock');
-      const sample = {utcMs:data.unixMs+rtt/2,monoMs:end,rtt};
-      if(!best || rtt<best.rtt)best=sample;
-    } catch { /* The clock must keep operating even if calibration fails. */ }
-  }
-  if (best) {
-    serverClock=best;
-    clockVerified=true;
-    dom.status.textContent='Time synchronized';
-    dom.status.parentElement.classList.add('synced');
-  } else {
-    // Explicitly disclose that an unverified device clock is the fallback.
-    clockVerified=false;
-    dom.status.textContent='Device time · not verified';
-    dom.status.parentElement.classList.remove('synced');
-  }
+// Update only when displayed seconds change, not five times every second.
+function startClock() {
+  clearTimeout(ticker);
+  if (document.hidden) return;
   clockUpdate();
+  ticker = setTimeout(startClock, nextSecondDelay(nowMs()));
+}
+function synchronize() {
+  if (syncPromise) return syncPromise;
+  syncPromise = (async () => {
+    let best = null;
+    // One server request for normal connections; retry a slow or failed sample once.
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const begin = performance.now();
+      try {
+        const response = await fetch('/api/time', {
+          cache: 'no-store',
+          signal: AbortSignal.timeout(3500)
+        });
+        if (!response.ok) throw new Error('Server time unavailable');
+        const data = await response.json();
+        const end = performance.now();
+        const sample = clockSample(data.unixMs, begin, end);
+        if (sample && (!best || sample.rtt < best.rtt)) best = sample;
+        if (best && best.rtt < 350) break;
+      } catch {
+        // Device time is an explicitly labeled fallback.
+      }
+    }
+    serverClock = best;
+    clockVerified = Boolean(best);
+    dom.status.textContent = best ? 'Server time calibrated' : 'Device time · not verified';
+    dom.status.parentElement.classList.toggle('synced', Boolean(best));
+    startClock();
+  })().finally(() => { syncPromise = null; });
+  return syncPromise;
 }
 
 const NS='http://www.w3.org/2000/svg';
@@ -230,17 +242,26 @@ function updateMap(animate=true) {
   const [x,y]=projection([selected.lon,selected.lat]);
   markerEls.forEach(marker=>marker.setAttribute('transform',`translate(${x} ${y})`));
 }
-function regionAt(lat,lon) {
+async function regionAt(lat, lon) {
   try {
-    const zone = tzlookup(lat,lon);
-    if (!zone) throw new Error('No timezone');
-    return zone;
+    if (!lookupModulePromise) {
+      // Load geographic lookups only when someone actually uses the map.
+      lookupModulePromise = import('@photostructure/tz-lookup')
+        .then(mod => mod.default)
+        .catch(error => { lookupModulePromise = null; throw error; });
+    }
+    const lookup = await lookupModulePromise;
+    const zone = lookup(lat, lon);
+    if (zone) return zone;
+    // Uninhabited oceans have no geographical civil time zone.
+    const hours = clamp(Math.round(lon / 15), -12, 12);
+    return hours === 0 ? 'Etc/UTC' : `Etc/GMT${hours > 0 ? '-' : '+'}${Math.abs(hours)}`;
   } catch {
-    // Uninhabited oceans lack civil time zones. Use an explicit nautical UTC zone.
-    const hours=clamp(Math.round(lon/15),-12,12);
-    return hours===0?'Etc/UTC':`Etc/GMT${hours>0?'-':'+'}${Math.abs(hours)}`;
+    // Never pretend to know an exact location's civil time if lookup failed.
+    return null;
   }
 }
+
 function findPlaceForZone(zone,lat,lon) {
   const near=CITIES.filter(c=>c.zone===zone).sort((a,b)=>Math.hypot(a.lat-lat,(a.lon-lon)*Math.cos(lat*Math.PI/180))-Math.hypot(b.lat-lat,(b.lon-lon)*Math.cos(lat*Math.PI/180)))[0];
   if(near && Math.abs(near.lat-lat)<5 && Math.abs(normalizeLon(near.lon-lon))<7) return near;
@@ -249,6 +270,7 @@ function findPlaceForZone(zone,lat,lon) {
   return {name:friendly,country:region,zone,lat,lon};
 }
 function choose(place,opts={}) {
+  coordinateRequestId++;
   selected=place;
   if(!Number.isFinite(selected.lon)) selected.lon=0;
   centerLon=normalizeLon(selected.lon);
@@ -260,10 +282,19 @@ function choose(place,opts={}) {
   document.querySelectorAll('.city-quick').forEach(el=>el.classList.toggle('current',el.dataset.city===selected.name));
   if(opts.closeSearch!==false)closeSearch();
 }
-function chooseCoordinate(lat,lon,opts={}) {
+async function chooseCoordinate(lat,lon,opts={}) {
+  const requestId = ++coordinateRequestId;
   lat=clamp(lat,-85,85);
   lon=normalizeLon(lon);
-  const zone=regionAt(lat,lon);
+  const zone=await regionAt(lat,lon);
+  if (requestId !== coordinateRequestId) return;
+  if (!zone) {
+    dom.status.textContent = 'Map unavailable · try city search';
+    setTimeout(() => {
+      dom.status.textContent = clockVerified ? 'Server time calibrated' : 'Device time · not verified';
+    }, 3500);
+    return;
+  }
   choose(findPlaceForZone(zone,lat,lon),opts);
 }
 function svgPoint(evt) {
@@ -401,10 +432,13 @@ function bindEvents() {
     },()=>{
       dom.locate.disabled=false;
       dom.status.textContent='Location unavailable · showing selected time';
-      setTimeout(()=>{dom.status.textContent=clockVerified?'Time synchronized':'Device time · not verified'},3500);
+      setTimeout(()=>{dom.status.textContent=clockVerified?'Server time calibrated':'Device time · not verified'},3500);
     },{enableHighAccuracy:false,maximumAge:600000,timeout:9000});
   });
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden){clockUpdate();synchronize()}});
+  document.addEventListener('visibilitychange',()=>{
+    if (document.hidden) clearTimeout(ticker);
+    else { startClock(); synchronize(); }
+  });
 }
 
 function boot() {
@@ -414,9 +448,8 @@ function boot() {
   bindEvents();
   choose(selected,{instant:true});
   document.querySelector('#footerYear').textContent=new Date().getFullYear();
-  ticker=setInterval(clockUpdate,200);
-  clockUpdate();
+  startClock();
   synchronize();
-  setInterval(()=>{if(!document.hidden)synchronize()},10*60*1000);
+  setInterval(()=>{if(!document.hidden)synchronize()},15*60*1000);
 }
 boot();
