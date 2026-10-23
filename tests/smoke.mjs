@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import lookup from '@photostructure/tz-lookup';
+const tz=(timeZone,date)=>new Intl.DateTimeFormat('en-GB',{timeZone,timeZoneName:'longOffset'}).formatToParts(new Date(date)).find(p=>p.type==='timeZoneName').value.replace('GMT','')||'+00:00';
+assert.match(lookup(50.85,4.35),/Brussels|Amsterdam|Paris/);
+assert.equal(tz('Europe/Brussels','2026-10-24T12:00:00Z'),'+02:00');
+assert.equal(tz('Europe/Brussels','2026-10-25T12:00:00Z'),'+01:00');
+assert.equal(tz('Asia/Kolkata','2026-10-23T12:00:00Z'),'+05:30');
+assert.equal(tz('Asia/Kathmandu','2026-10-23T12:00:00Z'),'+05:45');
+assert.equal(tz('America/New_York','2026-10-23T12:00:00Z'),'-04:00');
+assert.equal(tz('Australia/Adelaide','2026-10-23T12:00:00Z'),'+10:30');
+assert.equal(tz('Pacific/Auckland','2026-10-23T12:00:00Z'),'+13:00');
+console.log('PASS: representative geographic lookup and seven DST / fractional-offset tests');
