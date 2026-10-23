@@ -10,7 +10,7 @@ function safePage(value,origin) {
 const candidate=(code,priority,page,source,evidence,action,hypothesis,metric,authority)=>
   ({code,priority,page,source,evidence,action,authority:authority||decisionFor(action),
     hypothesis,successMetric:metric,status:'PROPOSED_ONLY'});
-export function planOptimization({site,audit={},gsc=null,lighthouse=null,playbook=null,at='2026-10-24T00:00:00Z',minImpressions=100,limit=12}) {
+export function planOptimization({site,audit={},gsc=null,lighthouse=null,playbook=null,at=new Date().toISOString(),minImpressions=100,limit=12}) {
   const url=new URL(site);
   if(url.protocol!=='https:')throw Error('A canonical HTTPS origin is required.');
   if(!Number.isInteger(limit)||limit<1||limit>50)throw Error('Invalid task limit.');
