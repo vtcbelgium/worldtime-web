@@ -55,3 +55,9 @@
 
 /* Hide original city-specific guide if the visitor selects a different clock. */
 .city-seo-detail[hidden]{display:none!important}
+
+/* Usable, keyboard-accessible search button when the mobile input is collapsed. */
+.search-open{flex:0 0 43px;height:100%;display:flex;align-items:center;justify-content:center;border:0;background:transparent;color:var(--secondary);cursor:pointer;padding:0}
+.search-open svg{height:17px;width:17px;stroke:currentColor;stroke-width:1.65;fill:none}
+.search-open:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:20px}
+@media(max-width:600px){.search-open{flex-basis:39px}}

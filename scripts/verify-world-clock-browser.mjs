@@ -45,6 +45,7 @@ try {
     if((await page.locator('#pageHeadline').innerText())!=='CORRECT TIME IN '+choice.toUpperCase())fail.push('Selected heading is stale');
     if(route.name && (await page.locator('#citySeoDetail').isVisible()))fail.push('Old city-specific guide still visible');
     // Search city selection must also keep the headline synchronized.
+    await page.locator('#searchOpen').click();
     await page.locator('#citySearch').fill('Lisbon');
     await page.locator('.result-item').first().click();
     if((await page.locator('#cityName').innerText())!=='Lisbon')fail.push('City search failed');

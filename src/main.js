@@ -15,7 +15,7 @@ const dom = {
   app: $('#app'), map: $('#worldMap'), layers: $('#worldLayers'), shell: $('#mapShell'),
   main: $('#timeMain'), seconds: $('#timeSeconds'), name: $('#cityName'), headline: $('#pageHeadline'), country: $('#countryName'),
   date: $('#dayDate'), zone: $('#zoneInfo'), utc: $('#utcCaption'), status: $('#clockStatus'),
-  search: $('#citySearch'), searchWrap: $('#searchWrap'), results: $('#searchResults'),
+  search: $('#citySearch'), searchWrap: $('#searchWrap'), searchOpen: $('#searchOpen'), results: $('#searchResults'),
   theme: $('#themeToggle'), prev: $('#prevZone'), next: $('#nextZone'), locate: $('#locate'),
   cityRow: $('#cityRow'), share: $('#shareTime'), shareNotice: $('#shareNotice')
 };
@@ -441,6 +441,7 @@ function bindEvents() {
   });
   dom.prev.addEventListener('click',()=>shiftZone(-1));
   dom.next.addEventListener('click',()=>shiftZone(1));
+  dom.searchOpen.addEventListener('click',()=>dom.search.focus());
   dom.search.addEventListener('input',openSearch);
   dom.search.addEventListener('focus',openSearch);
   dom.search.addEventListener('keydown',e=>{
