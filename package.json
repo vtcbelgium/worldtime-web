@@ -7,13 +7,14 @@
     "dev": "vite",
     "build": "npm run check && vite build && node scripts/generate-seo.mjs && node scripts/verify-dist.mjs && node tooling/othrys-optimize/bin/audit.mjs --strict && node tooling/othrys-optimize/bin/budget.mjs",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "node --check src/main.js && node --check src/share-links.js && node --check src/clock-core.js && node --check api/time.js && node --test tests/*.test.js && node scripts/validate-seo.mjs && node --test tooling/othrys-optimize/tests/*.test.mjs",
+    "check": "node --check scripts/seasonal-pages.mjs && node --check src/main.js && node --check src/share-links.js && node --check src/clock-core.js && node --check api/time.js && node --test tests/*.test.js && node scripts/validate-seo.mjs && node --test tooling/othrys-optimize/tests/*.test.mjs",
     "test": "node --test tests/*.test.js",
     "check:seo": "node --test tests/seo-content.test.js",
     "optimize:audit": "node tooling/othrys-optimize/bin/audit.mjs --strict",
     "optimize:report": "node tooling/othrys-optimize/bin/audit.mjs --report-dir .reports/optimization",
     "optimize:plan": "npm run optimize:report && node tooling/othrys-optimize/bin/plan.mjs --out .reports/optimization",
-    "optimize:smoke": "node tooling/othrys-optimize/bin/smoke.mjs"
+    "optimize:smoke": "node tooling/othrys-optimize/bin/smoke.mjs",
+    "test:locales:browser": "node scripts/verify-language-browser.mjs"
   },
   "dependencies": {
     "d3-geo": "3.1.1",

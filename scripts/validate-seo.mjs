@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { CITY_PAGES } from './seo-content.mjs';
+import { SEASONAL } from './seasonal-pages.mjs';
 import assert from 'node:assert/strict';
 const source = readFileSync('index.html','utf8');
 assert.ok(source.includes('class="seo-hub"'), 'Crawlable city hub missing');
@@ -16,10 +17,14 @@ console.log('SEO source validation passed: '+CITY_PAGES.length+' linked and edit
 // The browser must not rewrite the canonical search title as visitors explore the map.
 const runtime = readFileSync('src/main.js','utf8');
 assert.ok(!runtime.includes('document.title='), 'Client-side title mutations break stable intent-specific titles');
-const seasonalGenerator = readFileSync('scripts/generate-seo.mjs','utf8');
-const descriptions = [...seasonalGenerator.matchAll(/desc:'([^']+)'/g)].map(match => match[1]);
-assert.equal(descriptions.length, 2, 'Both seasonal meta descriptions must be present');
-for (const description of descriptions) {
-  assert.ok(!/20\d{2}/.test(description), 'Seasonal meta descriptions must not become stale after the next clock change');
+assert.equal(SEASONAL.length,2,'Expected two winter/summer topics');
+for(const topic of SEASONAL){
+  for(const version of [topic.nlCopy,topic.enCopy]){
+    assert.ok(version.description.length>80,'Seasonal description too short');
+    assert.ok(!/20\d{2}/.test(version.description),'Seasonal description must be evergreen');
+  }
 }
-console.log('Canonical title and evergreen metadata checks passed');
+const generator=readFileSync('scripts/generate-seo.mjs','utf8');
+assert.ok(generator.includes('writeSeasonalPages'),'Missing localization generator');
+assert.ok(source.includes('href="/winter-time-belgium/"')&&source.includes('href="/summer-time-belgium/"'),'Home must link to English guides');
+console.log('Canonical titles and localized seasonal metadata checks passed');
