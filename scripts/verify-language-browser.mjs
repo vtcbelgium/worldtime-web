@@ -73,6 +73,29 @@ try{
   }
   await context.close();
  }
+ // Click through both real bilingual journeys; reading href attributes alone is insufficient.
+ for(const topic of SEASONAL){
+  const page=await browser.newPage({viewport:{width:390,height:844}});
+  const failures=[];
+  try {
+   await page.goto(base+'/'+topic.en+'/',{waitUntil:'domcontentloaded'});
+   await page.locator('header a[hreflang="nl-BE"]').click();
+   await page.waitForURL('**/'+topic.nl+'/');
+   if(await page.locator('html').getAttribute('lang')!=='nl-BE')failures.push('Click to Dutch did not load Dutch document');
+   if(!(await page.locator('main').innerText()).includes('Gaat de klok vooruit of achteruit?'))failures.push('Dutch copy not visible after navigation');
+   await page.locator('header a[hreflang="en"]').click();
+   await page.waitForURL('**/'+topic.en+'/');
+   if(await page.locator('html').getAttribute('lang')!=='en')failures.push('Click to English did not load English document');
+   if(!(await page.locator('main').innerText()).includes('Do clocks go forward or back?'))failures.push('English copy not visible after navigation');
+   const related=topic.forward?'/winter-time-belgium/':'/summer-time-belgium/';
+   await page.locator('nav.links a[href="'+related+'"]').click();
+   await page.waitForURL('**'+related);
+   if(await page.locator('html').getAttribute('lang')!=='en')failures.push('Related clock-change guide switched language');
+  }catch(e){failures.push('Navigation failed: '+String(e.message).slice(0,180))}
+  reports.push({device:'mobile-navigation',route:'/'+topic.en+'/',language:'en→nl-BE→en',passed:failures.length===0,failures});
+  process.stdout.write((failures.length?'FAIL':'PASS')+' navigation '+topic.en+(failures.length?' '+failures.join('; '):'')+'\n');
+  await page.close();
+ }
 }finally{await browser.close()}
 const failed=reports.filter(x=>!x.passed);
 const summary={routes:routes.length,viewports:viewportCases.length,cases:reports.length,passed:reports.length-failed.length,failed:failed.length,results:reports};
