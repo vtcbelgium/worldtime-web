@@ -32,7 +32,7 @@
       <nav class="top-actions" aria-label="Clock controls">
         <div class="search-wrap" id="searchWrap">
           <label for="citySearch" class="sr-only">Search cities and time zones</label>
-          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+          <button type="button" id="searchOpen" class="search-open" aria-label="Search cities and time zones" title="Search cities"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
           <input id="citySearch" type="search" placeholder="Search a city" autocomplete="off" aria-autocomplete="list" aria-expanded="false" aria-controls="searchResults" />
           <div class="results" id="searchResults" role="listbox" aria-label="Cities" hidden></div>
         </div>
@@ -90,7 +90,7 @@
         <div class="info-copy">
           <p class="section-overline">SIMPLICITY, EVERY SECOND</p>
           <h2 id="aboutTitle">The correct time.<br /><em>Anywhere on Earth.</em></h2>
-          <p>Find the current time anywhere in the world. Explore the interactive world clock, move between time zones, or search for a city. Local times automatically account for daylight saving changes where applicable.</p>
+          <p>Find the current time anywhere in the world. Explore the interactive world clock, move between time zones, or search for a city. Local times automatically follow the relevant local time-zone rules.</p>
         </div>
         <div class="info-grid">
           <div><span class="info-index">01 / TIME</span><h3>Accurate by design</h3><p>We calibrate against a server clock when available. If you're offline, the time still works using your device clock, with its verification status clearly shown.</p></div>
@@ -102,7 +102,7 @@
         <div class="seo-hub-inner">
           <p class="section-overline">EXPLORE LOCAL TIME</p>
           <h2 id="worldClockCities">Correct time in cities around the world</h2>
-          <p>Open a city to see its live local time, UTC offset, and daylight saving information. Each clock stays on the same interactive world map.</p>
+          <p>Open a city to see its correct local time, date and UTC offset. Every city uses the same interactive world map.</p>
           <nav class="seo-city-links" aria-label="Explore current time in cities">
           <a href="/time/new-york/">New York</a>
           <a href="/time/london/">London</a>
@@ -113,7 +113,6 @@
           <a href="/time/kathmandu/">Kathmandu</a>
           <a href="/time/brussels/">Brussels</a>
           </nav>
-          <div class="seo-seasonal"><p>When do the clocks change in Belgium?</p><a href="/winter-time-belgium/">When do clocks go back in Belgium?</a><a href="/summer-time-belgium/">When do clocks go forward in Belgium?</a></div>
           <p class="seo-related">Need machine-readable timestamps rather than local time? Try the <a href="https://unixtime.othrys.be/">UnixTime timestamp converter</a> — another standalone OTHRYS utility.</p>
         </div>
       </section>
