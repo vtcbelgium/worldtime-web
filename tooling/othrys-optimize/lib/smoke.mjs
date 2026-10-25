@@ -25,7 +25,5 @@ export function checkHttpDocument({path,body,status,url,contentType=''}) {
   }
   if(path==='/time/brussels/')assert(body.includes('CORRECT TIME IN BRUSSELS'),'WRONG_CITY_HEADING');
   if(path==='/time/tokyo/')assert(body.includes('CORRECT TIME IN TOKYO'),'WRONG_CITY_HEADING');
-  if(path==='/wintertijd/'||path==='/zomertijd/')
-    assert(body.includes('id="countdown"'),'NO_SEASONAL_COUNTDOWN');
   return issues;
 }

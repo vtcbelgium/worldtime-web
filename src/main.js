@@ -13,7 +13,7 @@ const path = geoPath(projection);
 const $ = (selector) => document.querySelector(selector);
 const dom = {
   app: $('#app'), map: $('#worldMap'), layers: $('#worldLayers'), shell: $('#mapShell'),
-  main: $('#timeMain'), seconds: $('#timeSeconds'), name: $('#cityName'), country: $('#countryName'),
+  main: $('#timeMain'), seconds: $('#timeSeconds'), name: $('#cityName'), headline: $('#pageHeadline'), country: $('#countryName'),
   date: $('#dayDate'), zone: $('#zoneInfo'), utc: $('#utcCaption'), status: $('#clockStatus'),
   search: $('#citySearch'), searchWrap: $('#searchWrap'), results: $('#searchResults'),
   theme: $('#themeToggle'), prev: $('#prevZone'), next: $('#nextZone'), locate: $('#locate'),
@@ -286,7 +286,10 @@ function choose(place,opts={}) {
   if(!Number.isFinite(selected.lon)) selected.lon=0;
   centerLon=normalizeLon(selected.lon);
   dom.name.textContent=selected.name;
+  dom.headline.textContent='CORRECT TIME IN '+selected.name.toLocaleUpperCase('en');
   dom.country.textContent=selected.country;
+  const staticCity=document.querySelector('.city-seo-detail');
+  if(staticCity) staticCity.hidden=document.documentElement.dataset.seoCity!==selected.name;
   // Keep the canonical, intent-specific document title stable when visitors change clocks.
   // Changing the on-screen city must not rewrite a different page's SEO title.
   updateMap(!opts.instant);

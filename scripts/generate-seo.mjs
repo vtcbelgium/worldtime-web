@@ -1,7 +1,6 @@
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { CITY_PAGES, BASE_URL } from './seo-content.mjs';
-import { writeSeasonalPages } from './seasonal-pages.mjs';
 const dist = path.resolve('dist');
 const home = await readFile(path.join(dist, 'index.html'), 'utf8');
 if (!home.includes('seo-hub') || !home.includes('id="cityName"')) throw new Error('Missing home template landmarks');
@@ -55,21 +54,20 @@ for(const c of CITY_PAGES) {
     brussels: [['London','/time/london/']]
   };
   const compare = (related[c.slug] || []).map(([name,path])=>'<a href="'+path+'">Time in '+esc(name)+'</a>').join(' · ');
-  const detail = '<section class="city-seo-detail" aria-labelledby="aboutCity"><div>'+
+  const detail = '<section class="city-seo-detail" id="citySeoDetail" aria-labelledby="aboutCity"><div>'+
     '<p class="section-overline">LOCAL TIME GUIDE</p><h2 id="aboutCity">What time is it in '+esc(c.name)+'?</h2>'+
     '<p>The clock above shows the current local time and date in '+esc(c.name)+', '+esc(c.country)+'. It follows the IANA time zone <strong>'+esc(c.zone)+'</strong> and adjusts automatically as official rules change.</p>'+
     '<p class="city-facts">Standard local offset: '+esc(c.offset)+'.</p>'+
     '<p>'+esc(c.detail)+'</p><p>'+esc(c.use)+'</p>'+
     '<p>Compare the clock with: '+compare+'.</p>'+ 
-    '<p><a href="/">Back to the interactive world clock</a>'+ (c.zone.startsWith('Europe/') ? ' · <a href="/winter-time-belgium/">European clock changes</a>' : '')+'</p></div></section>';
+    '<p><a href="/">Back to the interactive world clock</a></p></div></section>';
   page = replaceExactly(page, '    </main>',detail+'    </main>');
   await writePage('time/'+c.slug, page);
   urls.push(url);
 }
-urls.push(...await writeSeasonalPages({dist, baseUrl:BASE_URL}));
 const map='<?xml version="1.0" encoding="UTF-8"?>\n'+
 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+
 urls.map(url=>'  <url><loc>'+url+'</loc></url>').join('\n')+
 '\n</urlset>\n';
 await writeFile(path.join(dist,'sitemap.xml'), map);
-console.log('SEO page generation passed: '+urls.length+' canonical URLs, 8 city pages and 4 localized seasonal guides');
+console.log('SEO page generation passed: '+urls.length+' canonical URLs, 8 city pages, no seasonal guides');

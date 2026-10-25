@@ -52,3 +52,6 @@
 .seo-related a{color:var(--text);text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:5px}
 @media(max-width:600px){.clock-share{margin-top:14px;font-size:10px;padding:7px 11px}.clock-share svg{width:12px;height:12px}.clock-hero h1.clock-kicker{letter-spacing:.13em;font-size:9px}}
 @media(prefers-reduced-motion:reduce){.clock-share{transition:none!important}}
+
+/* Hide original city-specific guide if the visitor selects a different clock. */
+.city-seo-detail[hidden]{display:none!important}
