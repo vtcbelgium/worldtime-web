@@ -69,7 +69,7 @@ export const CITY_PAGES = [
     "zone": "Europe/Brussels",
     "offset": "UTC+01:00 (CET) in winter and UTC+02:00 (CEST) in summer",
     "detail": "Brussels follows Central European Time in winter and Central European Summer Time in summer. Belgian clocks change on the last Sundays of March and October.",
-    "use": "On 25 October 2026 at 03:00, clocks in Belgium move back to 02:00. The live clock handles that repeated hour using Europe/Brussels time-zone rules."
+    "use": "When Belgian clocks move back in October, the hour from 02:00 to 03:00 occurs twice. The live clock handles that repeated hour using Europe/Brussels time-zone rules."
   }
 ];
 export const BASE_URL = 'https://worldtime.othrys.be';
