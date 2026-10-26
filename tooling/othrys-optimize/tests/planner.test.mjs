@@ -57,3 +57,20 @@ test('markdown output contains an explicit proposal status',()=>{
  const text=reportMarkdown(make({gsc:{data:[]}}));
  assert.ok(text.includes('PROPOSED_ONLY'));assert.ok(text.includes('AUTO_READ'));
 });
+
+test('cross-origin Lighthouse report cannot create a task for WorldTime',()=>{
+ const p=make({lighthouse:{finalUrl:'https://unrelated.example/',audits:{'largest-contentful-paint':{numericValue:9900}}}});
+ assert.equal(p.tasks.length,0);
+ assert.ok(p.sources.lighthouse.includes('unusable'));
+});
+test('Lighthouse without finalUrl is not attributed to the homepage',()=>{
+ const p=make({lighthouse:{audits:{'largest-contentful-paint':{numericValue:9900}}}});
+ assert.equal(p.tasks.length,0);
+});
+test('invalid GSC rows cannot trigger recommendations',()=>{
+ const p=make({gsc:[
+  {page:site+'/',impressions:100,clicks:200,position:8},
+  {page:site+'/',impressions:500,clicks:0,position:-2}
+ ]});
+ assert.equal(p.tasks.length,0);
+});
