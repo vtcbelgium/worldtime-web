@@ -72,6 +72,11 @@ const guideHtml=`<!doctype html>
 <title>Time Zone Accuracy: UTC Offsets, IANA Zones and DST | World Time</title>
 <meta name="description" content="Understand why UTC offsets differ from named IANA time zones, with real Brussels daylight-saving and Nepal quarter-hour examples and practical JavaScript." />
 <meta name="robots" content="index,follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Time Zone Accuracy: IANA Zones, UTC Offsets and DST | World Time">
+<meta property="og:description" content="Understand time-zone accuracy with Brussels daylight-saving, India and Nepal offset examples.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="${guideUrl}">
 <link rel="canonical" href="${guideUrl}" />
 <style>body{margin:0;background:#101923;color:#f3f7fa;font:17px/1.7 system-ui,sans-serif}main{max-width:780px;margin:auto;padding:40px 24px 80px}a{color:#9ddbc9}h1,h2{line-height:1.2}h1{font-size:clamp(2rem,5vw,3rem)}section{margin:32px 0}code,pre{background:#1e2c38;border-radius:6px}code{padding:2px 5px}pre{padding:18px;overflow-x:auto}pre code{padding:0}nav{margin-bottom:42px}footer{border-top:1px solid #455560;padding-top:20px}</style></head><body><main>
 <nav aria-label="Breadcrumb"><a href="/">World Time</a> / Time zone accuracy</nav>
