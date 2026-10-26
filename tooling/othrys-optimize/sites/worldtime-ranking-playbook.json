@@ -43,18 +43,18 @@
       "name": "Unique city page value",
       "state": "implemented-live",
       "authority": "OWNER_APPROVAL",
-      "deliverable": "Eight useful pre-rendered city pages and two seasonal guides",
+      "deliverable": "Eight useful pre-rendered city pages; no seasonal guides in the verified 2026-10-26 build",
       "measurement": "Indexed pages, query impressions and meaningful clicks",
-      "next": "Only expand pages after Search Console confirms demand"
+      "next": "Only expand city pages after Search Console confirms useful demand; do not reintroduce seasonal guides without an explicit scope decision"
     },
     {
       "id": "RANK-05",
       "name": "Real localization",
-      "state": "partly-live",
+      "state": "research-only",
       "authority": "OWNER_APPROVAL",
-      "deliverable": "Dutch Belgian guides; avoid bogus hreflang between unrelated pages",
+      "deliverable": "Current verified build has nine English clock pages; no live Dutch seasonal guides",
       "measurement": "Localized query demand",
-      "next": "Consider reviewed French/German equivalents once demand appears"
+      "next": "Assess actual localized query demand before implementing reviewed language variants"
     },
     {
       "id": "RANK-06",
@@ -79,9 +79,9 @@
       "name": "Internal navigation",
       "state": "implemented-preview",
       "authority": "PR_REVIEW",
-      "deliverable": "Related city comparison links, seasonal guides and UnixTime contextual link",
+      "deliverable": "Crawlable city navigation in the verified build; no seasonal guide links are expected",
       "measurement": "User navigation and indexable pathways",
-      "next": "Add cross-repo links only when relevant and owner-approved"
+      "next": "Review contextual cross-tool links only where helpful and owner-approved"
     },
     {
       "id": "RANK-09",
