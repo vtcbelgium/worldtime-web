@@ -33,7 +33,7 @@ export function planOptimization({site,audit={},gsc=null,lighthouse=null,playboo
       const page=safePage(row.page||row.url,origin);
       const impressions=numeric(row.impressions),clicks=numeric(row.clicks),pos=numeric(row.position);
       if(!page||!Number.isFinite(impressions)||!Number.isFinite(clicks)||!Number.isFinite(pos)||
-        impressions<minImpressions||impressions<=0||clicks<0)continue;
+        impressions<minImpressions||impressions<=0||clicks<0||clicks>impressions||pos<1)continue;
       if(pos>=4&&pos<=15&&clicks/impressions<.02){
         entries.push(candidate('GSC_SNIPPET_RESEARCH','P2',page,'search-console',
           impressions+' impressions, '+clicks+' clicks, avg position '+pos.toFixed(1),
@@ -46,9 +46,11 @@ export function planOptimization({site,audit={},gsc=null,lighthouse=null,playboo
       'Do not change headings based on nonexistent metrics.','First observed nonbranded impressions.','AUTO_READ'));
   }
   if(lighthouse!==null){
-    const scores=lighthouse.audits||{};
+    // Never attribute a Lighthouse measurement of another origin to this site.
+    const measuredPage=safePage(lighthouse.finalUrl,origin);
+    const scores=measuredPage?lighthouse.audits||{}:{};
     const checks=[['LCP','largest-contentful-paint',2500,'ms'],['CLS','cumulative-layout-shift',.1,''],['TBT','total-blocking-time',200,'ms']];
-    sources.lighthouse='provided synthetic lab evidence; real-user CWV not implied';
+    sources.lighthouse=measuredPage?'provided synthetic lab evidence for '+measuredPage+'; real-user CWV not implied':'unusable: missing or cross-origin finalUrl; no lab tasks created';
     for(const [label,key,budget,unit] of checks){
       const n=numeric(scores[key]?.numericValue);
       if(Number.isFinite(n)&&n>budget){
