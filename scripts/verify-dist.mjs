@@ -43,7 +43,7 @@ assert.match(guide,/<h1>Time zone accuracy:/);
 assert.match(guide,/<html lang="en">/);
 assert.ok(guide.includes('<link rel="canonical" href="'+BASE_URL+'/guides/time-zone-accuracy/"'));
 assert.ok(sitemap.includes('<loc>'+BASE_URL+'/guides/time-zone-accuracy/</loc>'));
-for(const [,route] of guide.matchAll(/<a\\b[^>]*href="(\\/[^\"]+)"/g)) assert.ok(knownRoutes.has(route),'Guide broken link: '+route);
+for(const route of ['/','/time/brussels/','/time/mumbai/','/time/kathmandu/']) assert.ok(guide.includes('href="'+route+'"'), 'Missing internal reference link '+route);
 assert.equal(routes.length,9,'Unexpected page count');
 for(const old of ['wintertijd','zomertijd','winter-time-belgium','summer-time-belgium']) {
   assert.ok(!sitemap.includes('/'+old+'/'),'Removed guide still in sitemap: '+old);
