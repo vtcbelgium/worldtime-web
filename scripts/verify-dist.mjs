@@ -7,7 +7,7 @@ const dist=path.resolve('dist');
 const sitemap=await readFile(path.join(dist,'sitemap.xml'),'utf8');
 const routes=[{slug:'',city:null},...CITY_PAGES.map(city=>({slug:'time/'+city.slug,city}))];
 const seenTitles=new Set();
-const knownRoutes=new Set(routes.map(x=>'/'+(x.slug?x.slug+'/':'')));
+const knownRoutes=new Set([...routes.map(x=>'/'+(x.slug?x.slug+'/':'')), '/guides/time-zone-accuracy/']);
 for(const {slug,city} of routes) {
   const html=await readFile(path.join(dist,slug,'index.html'),'utf8');
   const url=BASE_URL+'/'+(slug?slug+'/':'');
@@ -37,10 +37,16 @@ for(const {slug,city} of routes) {
   for(const [,route] of html.matchAll(/<a\b[^>]*href="(\/[^"]+)"/g))
     assert.ok(knownRoutes.has(route),'Broken internal route '+route+' on '+slug);
 }
-assert.equal((sitemap.match(/<url>/g)||[]).length,9,'Sitemap should contain 9 clocks');
+assert.equal((sitemap.match(/<url>/g)||[]).length,10,'Sitemap should contain 9 clocks and 1 guide');
+const guide=await readFile(path.join(dist,'guides/time-zone-accuracy/index.html'),'utf8');
+assert.match(guide,/<h1>Time zone accuracy:/);
+assert.match(guide,/<html lang="en">/);
+assert.ok(guide.includes('<link rel="canonical" href="'+BASE_URL+'/guides/time-zone-accuracy/"'));
+assert.ok(sitemap.includes('<loc>'+BASE_URL+'/guides/time-zone-accuracy/</loc>'));
+for(const [,route] of guide.matchAll(/<a\\b[^>]*href="(\\/[^\"]+)"/g)) assert.ok(knownRoutes.has(route),'Guide broken link: '+route);
 assert.equal(routes.length,9,'Unexpected page count');
 for(const old of ['wintertijd','zomertijd','winter-time-belgium','summer-time-belgium']) {
   assert.ok(!sitemap.includes('/'+old+'/'),'Removed guide still in sitemap: '+old);
   await assert.rejects(readFile(path.join(dist,old,'index.html'),'utf8'),{code:'ENOENT'});
 }
-console.log('World Time output verification passed: 9 English clock pages, live headings, links and no seasonal guides.');
+console.log('World Time output verification passed: 9 English clock pages, 1 accuracy guide, links and no seasonal guides.');
