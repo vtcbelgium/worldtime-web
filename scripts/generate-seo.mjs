@@ -65,9 +65,45 @@ for(const c of CITY_PAGES) {
   await writePage('time/'+c.slug, page);
   urls.push(url);
 }
+// One original, crawlable editorial reference; no automatic keyword/location pages.
+const guideUrl=BASE_URL+'/guides/time-zone-accuracy/';
+const guideHtml=`<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Time Zone Accuracy: UTC Offsets, IANA Zones and DST | World Time</title>
+<meta name="description" content="Understand why UTC offsets differ from named IANA time zones, with real Brussels daylight-saving and Nepal quarter-hour examples and practical JavaScript." />
+<meta name="robots" content="index,follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="Time Zone Accuracy: IANA Zones, UTC Offsets and DST | World Time">
+<meta property="og:description" content="Understand time-zone accuracy with Brussels daylight-saving, India and Nepal offset examples.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="${guideUrl}">
+<link rel="canonical" href="${guideUrl}" />
+<style>body{margin:0;background:#101923;color:#f3f7fa;font:17px/1.7 system-ui,sans-serif}main{max-width:780px;margin:auto;padding:40px 24px 80px}a{color:#9ddbc9}h1,h2{line-height:1.2}h1{font-size:clamp(2rem,5vw,3rem)}section{margin:32px 0}code,pre{background:#1e2c38;border-radius:6px}code{padding:2px 5px}pre{padding:18px;overflow-x:auto}pre code{padding:0}nav{margin-bottom:42px}footer{border-top:1px solid #455560;padding-top:20px}</style></head><body><main>
+<nav aria-label="Breadcrumb"><a href="/">World Time</a> / Time zone accuracy</nav>
+<article><h1>Time zone accuracy: why UTC offsets are not enough</h1>
+<p>A fixed offset such as UTC+01:00 tells you the difference from UTC at one instant. A named IANA time zone such as <code>Europe/Brussels</code> describes rules that can change by date, including daylight-saving transitions.</p>
+<section><h2>One local hour, two different instants</h2>
+<p>In Brussels on 25 October 2026 the local clock shows 02:30 twice. At 00:30 UTC it is 02:30 UTC+02:00. At 01:30 UTC it is 02:30 UTC+01:00. If you store only local wall time, the moment is ambiguous.</p></section>
+<section><h2>Not all offsets are whole hours</h2>
+<p>Mumbai uses <code>Asia/Kolkata</code> (UTC+05:30), while Kathmandu uses <code>Asia/Kathmandu</code> (UTC+05:45). The difference between these cities is fifteen minutes.</p>
+<p>Try the live <a href="/time/mumbai/">Mumbai clock</a>, <a href="/time/kathmandu/">Kathmandu clock</a>, and <a href="/time/brussels/">Brussels clock</a>.</p></section>
+<section><h2>Format a known UTC instant in JavaScript</h2>
+<pre><code>const instant = new Date('2026-10-25T01:30:00Z');
+const formatter = new Intl.DateTimeFormat('en-GB', {
+  timeZone: 'Europe/Brussels',
+  dateStyle: 'full',
+  timeStyle: 'long'
+});
+console.log(formatter.format(instant));</code></pre>
+<p>Named time zones let the runtime select the appropriate offset for that date. Keep your runtime's time-zone data updated; future rules may change by law.</p></section>
+<section><h2>How to check a world clock</h2><p>Check the city and IANA identifier, transitions near clock changes, half-hour and quarter-hour offsets, and whether the date changes when comparing continents. WorldTime uses server calibration when available and identifies when it falls back to the device clock.</p></section>
+<section><h2>References</h2><p><a href="https://www.iana.org/time-zones">IANA Time Zone Database</a> · <a href="https://tc39.es/ecma402/#datetimeformat-objects">ECMA-402 Intl.DateTimeFormat</a></p></section>
+</article><footer><a href="/">Back to the interactive world clock</a></footer></main></body></html>`;
+await writePage('guides/time-zone-accuracy', guideHtml);
+urls.push(guideUrl);
 const map='<?xml version="1.0" encoding="UTF-8"?>\n'+
 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+
 urls.map(url=>'  <url><loc>'+url+'</loc></url>').join('\n')+
 '\n</urlset>\n';
 await writeFile(path.join(dist,'sitemap.xml'), map);
-console.log('SEO page generation passed: '+urls.length+' canonical URLs, 8 city pages, no seasonal guides');
+console.log('SEO page generation passed: '+urls.length+' canonical URLs, 8 city pages, 1 accuracy guide, no seasonal guides');
