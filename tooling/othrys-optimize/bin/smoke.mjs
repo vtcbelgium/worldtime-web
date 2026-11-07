@@ -11,7 +11,7 @@ const configPath=path.resolve(confArg>=0?args[confArg+1]:'tooling/othrys-optimiz
 const config=JSON.parse(await readFile(configPath,'utf8'));
 const origin=new URL(config.baseUrl).origin;
 if(new URL(config.baseUrl).protocol!=='https:')throw Error('Only HTTPS origins are allowed.');
-const pages=['/','/time/new-york/','/time/london/','/time/tokyo/','/time/sydney/','/time/dubai/','/time/mumbai/','/time/kathmandu/','/time/brussels/','/sitemap.xml','/api/time'];
+const pages=['/','/time/','/time/new-york/','/time/london/','/time/tokyo/','/time/sydney/','/time/dubai/','/time/mumbai/','/time/kathmandu/','/time/brussels/','/sitemap.xml','/api/time'];
 const outcomes=[];
 for(const pathName of pages) {
   const url=origin+pathName;

@@ -73,3 +73,14 @@ export const CITY_PAGES = [
   }
 ];
 export const BASE_URL = 'https://worldtime.othrys.be';
+export const HUB_URL = BASE_URL+'/time/';
+export const HUB_NAME = 'World Clocks';
+// One trail shape for every /time/ page: the hub is level 2, a city is level 3.
+export const timeBreadcrumbs = (city) => ({
+  '@type':'BreadcrumbList',
+  itemListElement:[
+    ['World Time',BASE_URL+'/'],
+    [HUB_NAME,HUB_URL],
+    ...(city?[['Time in '+city.name,HUB_URL+city.slug+'/']]:[])
+  ].map(([name,item],index)=>({'@type':'ListItem',position:index+1,name,item}))
+});

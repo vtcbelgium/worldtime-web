@@ -45,6 +45,7 @@ Map visibility correction: `src/style.css` places the SVG map above the opaque g
 
 - The immersive home page remains unchanged above the fold. Discoverable, static HTML links beneath it lead to eight editorially reviewed city clock URLs and two Dutch seasonal guides.
 - `scripts/generate-seo.mjs` builds real HTML pages from the Vite output: unique canonical, title, description, schema.org WebPage/BreadcrumbList, and static local time zone facts. Client app reads `data-seo-city` to display the correct city's live clock instead of visitor local time.
+- `/time/` is the crawlable hub for the city clocks, linked from the home page footer. It and every city page carry BreadcrumbList JSON-LD (World Time → World Clocks → city).
 - All URLs are in the sitemap. Don't create fake, bulk, thin or duplicate pages. Add new cities only after verifying unique user value and query demand from actual Search Console impressions.
 - Dutch `/wintertijd/` and `/zomertijd/` explain Belgian changes, cite the Belgian Royal Observatory, calculate the next change automatically, and link back to the clock.
 - Google FAQ rich results were retired in May 2026. No unsupported FAQ or artificial rich-result markup has been added.

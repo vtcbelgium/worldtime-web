@@ -3,6 +3,7 @@ import {CITY_PAGES} from './seo-content.mjs';
 import assert from 'node:assert/strict';
 const source=readFileSync('index.html','utf8');
 assert.ok(source.includes('class="seo-hub"'),'City list not crawlable');
+assert.ok(source.includes('<a href="/time/">'),'Footer link to city hub missing');
 assert.ok(source.includes('rel="canonical"'),'Canonical missing');
 assert.ok(source.includes('robots'),'Robots meta missing');
 assert.ok(source.includes('<h1 class="clock-kicker" id="pageHeadline">WORLD CLOCK · CORRECT TIME NOW</h1>'),'Generic homepage H1 missing');
