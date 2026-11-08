@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>World Clock Widget | WorldTime</title>
+  <meta name="robots" content="noindex, follow">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: #0b1120; color: #f8fafc; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; }
+    .city-card { background: #1e293b; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px; text-align: center; }
+    .city-name { font-size: 11px; text-transform: uppercase; color: #94a3b8; font-weight: 700; }
+    .city-time { font-size: 18px; font-weight: 800; color: #38bdf8; margin: 4px 0; font-variant-numeric: tabular-nums; }
+    .city-date { font-size: 10px; color: #64748b; }
+    .footer { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #94a3b8; padding-top: 4px; }
+    .footer a { color: #94a3b8; text-decoration: none; font-weight: 600; }
+    .footer a:hover { color: #38bdf8; }
+  </style>
+</head>
+<body>
+  <div class="grid" id="clock-grid"></div>
+  <div class="footer">
+    <a href="https://worldtime.othrys.be/" target="_blank" rel="noopener">⚡ Powered by WorldTime</a>
+    <span>Live Atomic Accurate</span>
+  </div>
+  <script>
+    const zones = [
+      { city: 'London', tz: 'Europe/London' },
+      { city: 'Brussels / Paris', tz: 'Europe/Brussels' },
+      { city: 'New York', tz: 'America/New_York' },
+      { city: 'Tokyo', tz: 'Asia/Tokyo' }
+    ];
+    const grid = document.getElementById('clock-grid');
+    function update() {
+      const now = new Date();
+      grid.innerHTML = zones.map(z => {
+        const timeStr = now.toLocaleTimeString('en-GB', { timeZone: z.tz, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const dateStr = now.toLocaleDateString('en-GB', { timeZone: z.tz, weekday: 'short', month: 'short', day: 'numeric' });
+        return `<div class="city-card">
+          <div class="city-name">${z.city}</div>
+          <div class="city-time">${timeStr}</div>
+          <div class="city-date">${dateStr}</div>
+        </div>`;
+      }).join('');
+    }
+    setInterval(update, 1000);
+    update();
+  </script>
+</body>
+</html>
