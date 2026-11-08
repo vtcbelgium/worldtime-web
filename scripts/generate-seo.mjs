@@ -1,6 +1,6 @@
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { CITY_PAGES, BASE_URL } from './seo-content.mjs';
+import { CITY_PAGES, BASE_URL, HUB_URL, HUB_NAME, timeBreadcrumbs } from './seo-content.mjs';
 const dist = path.resolve('dist');
 const home = await readFile(path.join(dist, 'index.html'), 'utf8');
 if (!home.includes('seo-hub') || !home.includes('id="cityName"')) throw new Error('Missing home template landmarks');
@@ -15,7 +15,7 @@ const writePage = async (route, content) => {
   await mkdir(directory,{recursive:true});
   await writeFile(path.join(directory,'index.html'), content);
 };
-const urls = [BASE_URL+'/'];
+const urls = [BASE_URL+'/', HUB_URL];
 for(const c of CITY_PAGES) {
   const title = 'Current Time in '+c.name+' – Correct Local Time Now | World Time';
   const description = 'Find the correct local time in '+c.name+', '+c.country+'. Live clock, '+c.zone+' time zone, daylight saving updates and UTC offset. Explore the world time map.';
@@ -36,10 +36,7 @@ for(const c of CITY_PAGES) {
     '@context':'https://schema.org','@type':'WebPage',
     name:title,description,url,
     isPartOf:{'@type':'WebSite',name:'World Time',url:BASE_URL+'/'},
-    breadcrumb:{'@type':'BreadcrumbList',itemListElement:[
-      {'@type':'ListItem',position:1,name:'World Time',item:BASE_URL+'/'},
-      {'@type':'ListItem',position:2,name:'Time in '+c.name,item:url}
-    ]}
+    breadcrumb:timeBreadcrumbs(c)
   };
   // Preserve WebSite/WebApplication markup; append the city's own WebPage facts.
   page = page.replace('</head>', '<script type="application/ld+json">'+JSON.stringify(schema)+'</script>\n</head>');
@@ -55,6 +52,7 @@ for(const c of CITY_PAGES) {
   };
   const compare = (related[c.slug] || []).map(([name,path])=>'<a href="'+path+'">Time in '+esc(name)+'</a>').join(' · ');
   const detail = '<section class="city-seo-detail" id="citySeoDetail" aria-labelledby="aboutCity"><div>'+
+    '<nav aria-label="Breadcrumb"><a href="/">World Time</a> / <a href="/time/">'+HUB_NAME+'</a> / Time in '+esc(c.name)+'</nav>'+
     '<p class="section-overline">LOCAL TIME GUIDE</p><h2 id="aboutCity">What time is it in '+esc(c.name)+'?</h2>'+
     '<p>The clock above shows the current local time and date in '+esc(c.name)+', '+esc(c.country)+'. It follows the IANA time zone <strong>'+esc(c.zone)+'</strong> and adjusts automatically as official rules change.</p>'+
     '<p class="city-facts">Standard local offset: '+esc(c.offset)+'.</p>'+
@@ -65,6 +63,38 @@ for(const c of CITY_PAGES) {
   await writePage('time/'+c.slug, page);
   urls.push(url);
 }
+// Crawlable index of the reviewed city clocks; facts come from the same CITY_PAGES data.
+const hubTitle='World Clocks by City: Local Time and UTC Offsets | World Time';
+const hubDescription='Browse live world clocks for New York, London, Tokyo, Sydney, Dubai, Mumbai, Kathmandu and Brussels, with each IANA time zone and UTC offset.';
+const hubSchema={
+  '@context':'https://schema.org','@type':'CollectionPage',
+  name:hubTitle,description:hubDescription,url:HUB_URL,
+  isPartOf:{'@type':'WebSite',name:'World Time',url:BASE_URL+'/'},
+  breadcrumb:timeBreadcrumbs()
+};
+const hubCities=CITY_PAGES.map(c=>'<li><a href="/time/'+c.slug+'/">Time in '+esc(c.name)+'</a><br>'+esc(c.country)+' · <code>'+esc(c.zone)+'</code><br>'+esc(c.offset)+'</li>').join('\n');
+const hubHtml=`<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(hubTitle)}</title>
+<meta name="description" content="${esc(hubDescription)}" />
+<meta name="robots" content="index,follow">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<meta property="og:title" content="${esc(hubTitle)}">
+<meta property="og:description" content="${esc(hubDescription)}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${HUB_URL}">
+<link rel="canonical" href="${HUB_URL}" />
+<script type="application/ld+json">${JSON.stringify(hubSchema)}</script>
+<style>body{margin:0;background:#101923;color:#f3f7fa;font:17px/1.7 system-ui,sans-serif}main{max-width:780px;margin:auto;padding:40px 24px 80px}a{color:#9ddbc9}h1{line-height:1.2;font-size:clamp(2rem,5vw,3rem)}ul{list-style:none;margin:32px 0;padding:0}li{padding:14px 0;border-top:1px solid #455560}code{background:#1e2c38;border-radius:6px;padding:2px 5px}nav{margin-bottom:42px}footer{border-top:1px solid #455560;padding-top:20px}</style></head><body><main>
+<nav aria-label="Breadcrumb"><a href="/">World Time</a> / ${HUB_NAME}</nav>
+<h1>World clocks by city</h1>
+<p>Each page below shows the live local time and date for one city, using its named IANA time zone so daylight-saving changes are followed automatically.</p>
+<ul>
+${hubCities}
+</ul>
+<p>Why a named zone matters more than a fixed offset: read the <a href="/guides/time-zone-accuracy/">time zone accuracy guide</a>.</p>
+<footer><a href="/">Back to the interactive world clock</a></footer></main></body></html>`;
+await writePage('time', hubHtml);
 // One original, crawlable editorial reference; no automatic keyword/location pages.
 const guideUrl=BASE_URL+'/guides/time-zone-accuracy/';
 const guideHtml=`<!doctype html>
@@ -106,4 +136,4 @@ const map='<?xml version="1.0" encoding="UTF-8"?>\n'+
 urls.map(url=>'  <url><loc>'+url+'</loc></url>').join('\n')+
 '\n</urlset>\n';
 await writeFile(path.join(dist,'sitemap.xml'), map);
-console.log('SEO page generation passed: '+urls.length+' canonical URLs, 8 city pages, 1 accuracy guide, no seasonal guides');
+console.log('SEO page generation passed: '+urls.length+' canonical URLs, 8 city pages, 1 city hub, 1 accuracy guide, no seasonal guides');
