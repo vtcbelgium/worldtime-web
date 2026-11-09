@@ -14,4 +14,19 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://worldtime.othrys.be/time/</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://worldtime.othrys.be/time/new-york/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://worldtime.othrys.be/time/london/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://worldtime.othrys.be/time/tokyo/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://worldtime.othrys.be/time/sydney/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://worldtime.othrys.be/time/dubai/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://worldtime.othrys.be/time/mumbai/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://worldtime.othrys.be/time/kathmandu/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://worldtime.othrys.be/time/brussels/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://worldtime.othrys.be/guides/time-zone-accuracy/</loc><lastmod>2026-11-09</lastmod></url>
 </urlset>
