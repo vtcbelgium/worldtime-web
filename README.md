@@ -5,7 +5,7 @@
 [![Cookies](https://img.shields.io/badge/Cookies-0-blue?style=flat-square)](https://worldtime.othrys.be)
 [![WCAG AA](https://img.shields.io/badge/Accessibility-WCAG_AA-blueviolet?style=flat-square)](https://worldtime.othrys.be)
 
-> Fast, private, client-side DST-accurate world clock and interactive time zone converter. Runs 100% in your browser with zero server uploads, zero cookies, and zero tracking.
+> Fast, private, client-side DST-accurate world clock and interactive time zone converter. Runs 100% in your browser with zero server uploads, zero cookies, and zero third-party tracking.
 
 ## Features
 - **100% Client-Side:** Files and confidential data never leave your device.
@@ -37,7 +37,7 @@ The map shows illustrative meridian grid divisions; location lookups use current
 
 ## Privacy
 
-No accounts, tracking, or cookies. Browser time zone is available without GPS; precise location is asked for only on button click. A local theme preference is retained in browser storage.
+No accounts, cookies, or third-party tracking. Only anonymous, cookieless page-view counts (stats.othrys.be, respecting Do Not Track / GPC, 90-day expiry) are recorded. Browser time zone is available without GPS; precise location is asked for only on button click. A local theme preference is retained in browser storage.
 
 ## Release verification
 

@@ -93,7 +93,7 @@ const hubHtml=`<!doctype html>
 ${hubCities}
 </ul>
 <p>Why a named zone matters more than a fixed offset: read the <a href="/guides/time-zone-accuracy/">time zone accuracy guide</a>.</p>
-<footer><a href="/">Back to the interactive world clock</a></footer></main></body></html>`;
+<footer><a href="/">Back to the interactive world clock</a></footer></main><script src="/stats.js" defer></script></body></html>`;
 await writePage('time', hubHtml);
 // One original, crawlable editorial reference; no automatic keyword/location pages.
 const guideUrl=BASE_URL+'/guides/time-zone-accuracy/';
@@ -128,7 +128,7 @@ console.log(formatter.format(instant));</code></pre>
 <p>Named time zones let the runtime select the appropriate offset for that date. Keep your runtime's time-zone data updated; future rules may change by law.</p></section>
 <section><h2>How to check a world clock</h2><p>Check the city and IANA identifier, transitions near clock changes, half-hour and quarter-hour offsets, and whether the date changes when comparing continents. WorldTime uses server calibration when available and identifies when it falls back to the device clock.</p></section>
 <section><h2>References</h2><p><a href="https://www.iana.org/time-zones">IANA Time Zone Database</a> · <a href="https://tc39.es/ecma402/#datetimeformat-objects">ECMA-402 Intl.DateTimeFormat</a></p></section>
-</article><footer><a href="/">Back to the interactive world clock</a></footer></main></body></html>`;
+</article><footer><a href="/">Back to the interactive world clock</a></footer></main><script src="/stats.js" defer></script></body></html>`;
 await writePage('guides/time-zone-accuracy', guideHtml);
 urls.push(guideUrl);
 const map='<?xml version="1.0" encoding="UTF-8"?>\n'+
