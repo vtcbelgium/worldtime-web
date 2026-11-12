@@ -85,7 +85,7 @@ const hubHtml=`<!doctype html>
 <meta property="og:url" content="${HUB_URL}">
 <link rel="canonical" href="${HUB_URL}" />
 <script type="application/ld+json">${JSON.stringify(hubSchema)}</script>
-<style>body{margin:0;background:#101923;color:#f3f7fa;font:17px/1.7 system-ui,sans-serif}main{max-width:780px;margin:auto;padding:40px 24px 80px}a{color:#9ddbc9}h1{line-height:1.2;font-size:clamp(2rem,5vw,3rem)}ul{list-style:none;margin:32px 0;padding:0}li{padding:14px 0;border-top:1px solid #455560}code{background:#1e2c38;border-radius:6px;padding:2px 5px}nav{margin-bottom:42px}footer{border-top:1px solid #455560;padding-top:20px}</style></head><body><main>
+<style>body{margin:0;background:#090b10;color:#f3f5f8;font:17px/1.7 system-ui,sans-serif}main{max-width:780px;margin:auto;padding:40px 24px 80px}a{color:#38bdf8}h1{line-height:1.2;font-size:clamp(2rem,5vw,3rem)}ul{list-style:none;margin:32px 0;padding:0}li{padding:14px 0;border-top:1px solid #222938}code{background:#0e121a;border-radius:6px;padding:2px 5px}nav{margin-bottom:42px}footer{border-top:1px solid #222938;padding-top:20px}</style></head><body><main>
 <nav aria-label="Breadcrumb"><a href="/">World Time</a> / ${HUB_NAME}</nav>
 <h1>World clocks by city</h1>
 <p>Each page below shows the live local time and date for one city, using its named IANA time zone so daylight-saving changes are followed automatically.</p>
@@ -108,7 +108,7 @@ const guideHtml=`<!doctype html>
 <meta property="og:type" content="article">
 <meta property="og:url" content="${guideUrl}">
 <link rel="canonical" href="${guideUrl}" />
-<style>body{margin:0;background:#101923;color:#f3f7fa;font:17px/1.7 system-ui,sans-serif}main{max-width:780px;margin:auto;padding:40px 24px 80px}a{color:#9ddbc9}h1,h2{line-height:1.2}h1{font-size:clamp(2rem,5vw,3rem)}section{margin:32px 0}code,pre{background:#1e2c38;border-radius:6px}code{padding:2px 5px}pre{padding:18px;overflow-x:auto}pre code{padding:0}nav{margin-bottom:42px}footer{border-top:1px solid #455560;padding-top:20px}</style></head><body><main>
+<style>body{margin:0;background:#090b10;color:#f3f5f8;font:17px/1.7 system-ui,sans-serif}main{max-width:780px;margin:auto;padding:40px 24px 80px}a{color:#38bdf8}h1,h2{line-height:1.2}h1{font-size:clamp(2rem,5vw,3rem)}section{margin:32px 0}code,pre{background:#0e121a;border-radius:6px}code{padding:2px 5px}pre{padding:18px;overflow-x:auto}pre code{padding:0}nav{margin-bottom:42px}footer{border-top:1px solid #222938;padding-top:20px}</style></head><body><main>
 <nav aria-label="Breadcrumb"><a href="/">World Time</a> / Time zone accuracy</nav>
 <article><h1>Time zone accuracy: why UTC offsets are not enough</h1>
 <p>A fixed offset such as UTC+01:00 tells you the difference from UTC at one instant. A named IANA time zone such as <code>Europe/Brussels</code> describes rules that can change by date, including daylight-saving transitions.</p>
