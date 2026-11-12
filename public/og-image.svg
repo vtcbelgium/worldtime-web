@@ -18,6 +18,6 @@
   <text x="100" y="270" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="60" font-weight="900" fill="#ffffff" letter-spacing="-1">World Time & Clock</text>
   <text x="100" y="340" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="400" fill="#94a3b8">Live world clock, DST converter, and interactive time zone map.</text>
   <line x1="100" y1="420" x2="1100" y2="420" stroke="#1e293b" stroke-width="2"/>
-  <text x="100" y="480" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="600" fill="#38bdf8">&#x26A1; 100% Client-Side &#x2022; Zero Server Telemetry &#x2022; Sovereign</text>
+  <text x="100" y="480" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="600" fill="#38bdf8">&#x26A1; 100% Client-Side &#x2022; Zero Cookies &amp; Trackers &#x2022; Sovereign</text>
   <text x="1100" y="480" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="600" fill="#64748b" text-anchor="end">https://worldtime.othrys.be</text>
 </svg>
