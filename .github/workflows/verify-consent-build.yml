@@ -1,0 +1,38 @@
+name: Verify build and consent assets (Themis)
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: Existing tests
+        run: npm test --if-present
+      - name: Production build
+        run: npm run build
+      - name: Assert opt-in analytics client and stylesheet reached dist
+        run: |
+          test -s dist/stats.js
+          test -s dist/stats-consent.css
+          grep -F 'consent: "accepted"' dist/stats.js
+          grep -F 'choice !== "accepted"' dist/stats.js
+          if grep -q 'location.hash' dist/stats.js; then
+            echo "::error::Do not send URL fragments in statistics"
+            exit 1
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: verified-site-dist
+          path: dist/
+          retention-days: 7
