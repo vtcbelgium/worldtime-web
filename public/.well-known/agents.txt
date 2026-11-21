@@ -1,0 +1,7 @@
+Name: World Time
+URL: https://worldtime.othrys.be/
+Description: Private in-browser world clock, IANA time zone accuracy guide, and shareable meeting planner.
+LLMs-Txt: https://worldtime.othrys.be/llms.txt
+Sitemap: https://worldtime.othrys.be/sitemap.xml
+Protocol: public-read-only
+Privacy: zero-tracking-cookies, local-browser-execution, zero-cloud-uploads
